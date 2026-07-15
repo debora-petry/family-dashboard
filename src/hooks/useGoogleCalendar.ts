@@ -1,18 +1,6 @@
 import { useEffect, useState } from "react";
 import { getUpcomingEvents } from "../services/googleCalendar";
-
-export interface CalendarEvent {
-  id: string;
-  summary: string;
-  start: {
-    dateTime?: string;
-    date?: string;
-  };
-  end: {
-    dateTime?: string;
-    date?: string;
-  };
-}
+import type { CalendarEvent } from "../types/calendar";
 
 export function useGoogleCalendar(accessToken: string | null = null) {
   const [events, setEvents] = useState<CalendarEvent[]>([]);

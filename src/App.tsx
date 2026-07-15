@@ -1,9 +1,12 @@
-import { Button, Box, CircularProgress } from "@mui/material";
+import { Button, Box, CircularProgress, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
 import { useGoogleCalendar } from "./hooks/useGoogleCalendar";
 import { Calendar } from "./components/Calendar/Calendar";
+import { WeatherWidget } from "./components/WeatherWidget/WeatherWidget";
+import { Header } from "./components/Header/Header";
+import { colors } from "./theme/colors";
 
 const API_URL = 'http://localhost:3001';
 
@@ -99,10 +102,11 @@ function App() {
           alignItems: 'center',
           flexDirection: 'column',
           gap: 2,
+          backgroundColor: colors.bg,
         }}
       >
-        <CircularProgress />
-        <p>Verificando sessão do Google...</p>
+        <CircularProgress sx={{ color: colors.accent }} />
+        <Typography sx={{ color: colors.textDim }}>Verificando sessão do Google...</Typography>
       </Box>
     );
   }
@@ -117,14 +121,18 @@ function App() {
           alignItems: 'center',
           flexDirection: 'column',
           gap: 2,
+          backgroundColor: colors.bg,
         }}
       >
-        <h2>Family Dashboard</h2>
+        <Typography variant="h4" sx={{ color: colors.text, mb: 2 }}>
+          Debora's Family Dashboard
+        </Typography>
 
         <Button
           variant="contained"
           size="large"
           onClick={handleLogin}
+          sx={{ backgroundColor: colors.accent, '&:hover': { backgroundColor: colors.accentDim } }}
         >
           Conectar Google Calendar
         </Button>
@@ -134,15 +142,45 @@ function App() {
 
   return (
     <>
-      <Box sx={{ p: 2, display: 'flex', justifyContent: 'flex-end' }}>
-        <Button variant="outlined" onClick={handleLogout}>
+      <Header />
+      
+      <Box sx={{ p: 2, display: 'flex', justifyContent: 'flex-end', backgroundColor: colors.bg }}>
+        <Button 
+          variant="outlined" 
+          onClick={handleLogout}
+          sx={{ 
+            borderColor: colors.border, 
+            color: colors.text,
+            '&:hover': { 
+              borderColor: colors.accent,
+              backgroundColor: colors.surfaceHi
+            }
+          }}
+        >
           Sair
         </Button>
       </Box>
 
-      {error && <p>{error}</p>}
+      {error && <Typography sx={{ color: colors.red, p: 2 }}>{error}</Typography>}
 
-      <Calendar events={events} />
+      <Box sx={{ display: 'flex', height: 'calc(100vh - 64px)', backgroundColor: colors.bg }}>
+        <Box sx={{ width: '30%', p: 2, borderRight: `1px solid ${colors.border}`, overflow: 'auto', backgroundColor: colors.surface }}>
+          {/* Widget lateral */}
+          <Box sx={{ mb: 4 }}>
+            <Typography variant="h6" sx={{ mb: 2, color: colors.text }}>
+              Informações
+            </Typography>
+            <Typography variant="body1" sx={{ color: colors.textDim }}>
+              Conteúdo do widget (a definir)
+            </Typography>
+          </Box>
+          
+          <WeatherWidget />
+        </Box>
+        <Box sx={{ flex: 1, overflow: 'auto', backgroundColor: colors.bg }}>
+          <Calendar events={events} />
+        </Box>
+      </Box>
     </>
   );
 }

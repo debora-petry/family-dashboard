@@ -111,6 +111,14 @@ app.get('/auth/status', (req, res) => {
   });
 });
 
+app.get("/", (req, res) => {
+  res.json({
+    status: "ok",
+    service: "Family Dashboard API",
+    version: "1.0.0",
+  });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });

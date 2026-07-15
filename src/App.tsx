@@ -1,4 +1,4 @@
-import { Button, Box, CircularProgress, Typography } from "@mui/material";
+import { Box, CircularProgress, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -144,23 +144,6 @@ function App() {
     <>
       <Header />
       
-      <Box sx={{ p: 2, display: 'flex', justifyContent: 'flex-end', backgroundColor: colors.bg }}>
-        <Button 
-          variant="outlined" 
-          onClick={handleLogout}
-          sx={{ 
-            borderColor: colors.border, 
-            color: colors.text,
-            '&:hover': { 
-              borderColor: colors.accent,
-              backgroundColor: colors.surfaceHi
-            }
-          }}
-        >
-          Sair
-        </Button>
-      </Box>
-
       {error && <Typography sx={{ color: colors.red, p: 2 }}>{error}</Typography>}
 
       <Box sx={{ display: 'flex', height: 'calc(100vh - 64px)', backgroundColor: colors.bg }}>

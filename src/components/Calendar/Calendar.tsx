@@ -30,7 +30,7 @@ export function Calendar({ events }: CalendarProps) {
         headerToolbar={{
           left: 'title',
           center: '',
-          right: 'prev,next'
+          right: ''
         }}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="timeGridWeek"

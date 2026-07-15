@@ -9,13 +9,14 @@ export function useGoogleCalendar(accessToken: string | null = null) {
 
   useEffect(() => {
     if (!accessToken) return;
+    const token = accessToken;
 
     async function loadEvents() {
       try {
         setLoading(true);
         setError(null);
 
-        const data = await getUpcomingEvents(accessToken);
+        const data = await getUpcomingEvents(token);
         setEvents(data);
       } catch (err) {
         console.error(err);

@@ -66,15 +66,7 @@ function App() {
     }
   };
 
-  const handleLogout = async () => {
-    try {
-      await axios.post(`${API_URL}/auth/logout`);
-      setAccessToken(null);
-    } catch (error) {
-      console.error('Erro ao fazer logout:', error);
-    }
-  };
-
+ 
   // Refresh do token periodicamente
   useEffect(() => {
     if (!accessToken) return;

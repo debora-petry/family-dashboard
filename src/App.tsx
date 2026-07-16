@@ -5,6 +5,7 @@ import axios from "axios";
 import { useGoogleCalendar } from "./hooks/useGoogleCalendar";
 import { Calendar } from "./components/Calendar/Calendar";
 import { WeatherWidget } from "./components/WeatherWidget/WeatherWidget";
+import { InfoWidget } from "./components/InfoWidget/InfoWidget";
 import { Header } from "./components/Header/Header";
 import { colors } from "./theme/colors";
 
@@ -146,8 +147,9 @@ function App() {
 
           
 
-          
           <WeatherWidget />
+          <InfoWidget />
+
         </Box>
 
         <Box sx={{ flex: 1, overflow: 'auto', backgroundColor: colors.bg }}>

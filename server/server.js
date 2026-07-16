@@ -40,7 +40,7 @@ app.get('/auth/google', (req, res) => {
     `client_id=${process.env.GOOGLE_CLIENT_ID}&` +
     `redirect_uri=${encodeURIComponent(process.env.REDIRECT_URI)}&` +
     `response_type=code&` +
-    `scope=https://www.googleapis.com/auth/calendar.readonly&` +
+    `scope=https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/photoslibrary.readonly&` +
     `access_type=offline&` +
     `prompt=consent`;
 
@@ -136,6 +136,26 @@ app.get("/", (req, res) => {
     version: "1.0.0",
   });
 });
+
+app.get("/photos/albums", async (req, res) => {
+  try {
+    const response = await axios.get(
+      "https://photoslibrary.googleapis.com/v1/albums",
+      {
+        headers: {
+          Authorization: `Bearer ${tokens.access_token}`,
+        },
+      }
+    );
+
+    res.json(response.data);
+  } catch (error) {
+    console.error(error.response?.data || error);
+    res.status(500).json(error.response?.data || error.message);
+  }
+});
+
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

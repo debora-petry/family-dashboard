@@ -120,7 +120,7 @@ const forecastIconStyle = {
 const getWeatherIcon = (code: number, style = iconStyle): ReactNode => {
   
   
-  code = 374
+  //code = 374 //test code
   switch (code) {
     // Sunny
     case 113:
@@ -311,8 +311,10 @@ const getWeatherIcon = (code: number, style = iconStyle): ReactNode => {
               display: "flex",
               flexDirection: "column",
               alignItems: "center",
-              justifyContent: "center",
-              flex: 1, }}>
+              //justifyContent: "center",
+              textAlign: "center",
+              flex: 1,
+               }}>
               
                 <Box>
                   <Typography variant="body1" sx={{ color: colors.text, fontWeight: 'medium' }}>
@@ -325,7 +327,15 @@ const getWeatherIcon = (code: number, style = iconStyle): ReactNode => {
                     {day.temp}°C 
                   </Typography>
                   
-                  <Typography variant="body2" sx={{ color: colors.textDim, opacity: 0.8 }}>
+                  <Typography
+                    variant="body2"
+                    sx={{
+                      color: colors.textDim,
+                      opacity: 0.8,
+                      textAlign: "center",
+                      mt: 0.5,
+                    }}
+                  >
                     {day.minTemp}° • {day.maxTemp}°
                   </Typography>
                

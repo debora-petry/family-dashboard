@@ -5,9 +5,10 @@ import axios from "axios";
 import { useGoogleCalendar } from "./hooks/useGoogleCalendar";
 import { Calendar } from "./components/Calendar/Calendar";
 import { WeatherWidget } from "./components/WeatherWidget/WeatherWidget";
-import { InfoWidget } from "./components/InfoWidget/InfoWidget";
+//import { InfoWidget } from "./components/InfoWidget/InfoWidget";
 import { Header } from "./components/Header/Header";
 import { colors } from "./theme/colors";
+import { PicWidget } from "./components/PicWidget/PicWidget";
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://family-dashboard-api.onrender.com';
 console.log("App: API_URL =", API_URL);
@@ -148,7 +149,7 @@ function App() {
           
 
           <WeatherWidget />
-          <InfoWidget />
+          <PicWidget />
 
         </Box>
 

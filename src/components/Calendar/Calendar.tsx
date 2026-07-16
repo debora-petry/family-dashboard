@@ -21,8 +21,31 @@ export function Calendar({ events }: CalendarProps) {
     return eventDate.isAfter(now.subtract(1, 'day')) && eventDate.isBefore(nextWeek.add(1, 'day'));
   });
 
+  
+
+
+  
+
   return (
-    <Box sx={{ p: 2, backgroundColor: colors.surface, borderRadius: 2 }}>
+    <Box sx={{ p: 2, backgroundColor: colors.surface, borderRadius: 2, fontFamily: "Roboto, sans-serif", "& .fc-toolbar-title": {
+      fontSize: "1.5rem",//24px
+      fontWeight: 400,
+      fontFamily: "Roboto, sans-serif",
+      lineHeight: 1.3,
+      letterSpacing: 0,
+      color: colors.textDim,
+    }, 
+    "& .fc-col-header-cell": {
+  backgroundColor: colors.surface,
+},
+
+"& .fc-col-header-cell-cushion": { //cabeçalho de cada coluna do calendário
+  fontSize: "15px",
+  fontWeight: 400,
+  color: colors.text,
+  textDecoration: "none",
+  padding: "10px 0",
+}}}>
       <FullCalendar
         locale={ptBrLocale}
         firstDay={1}
@@ -33,19 +56,27 @@ export function Calendar({ events }: CalendarProps) {
           right: ''
         }}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="timeGridWeek"
+        initialView="dayGridMonth"
         events={filteredEvents.map((event) => ({
           id: event.id,
-          title: event.summary,
+          title: event.start.dateTime
+            ? `${new Date(event.start.dateTime).toLocaleTimeString("pt-BR", {
+                hour: "2-digit",
+                minute: "2-digit",
+              })} • ${event.summary}`
+            : event.summary,     
           start: event.start.dateTime ?? event.start.date,
           end: event.end.dateTime ?? event.end.date,
-          backgroundColor: event.calendarColor || colors.accent,
+          display: "block",
+          backgroundColor: colors.surfaceHi,
           borderColor: event.calendarColor || colors.accent,
-          textColor: colors.surface,
+          textColor: colors.textDim,
+          
         }))}
         slotMinTime="06:00:00"
         slotMaxTime="23:00:00"
-        allDaySlot={false}
+        displayEventTime={false}
+        allDaySlot={true}
         eventDidMount={(info) => {
           info.el.style.borderRadius = '8px';
           info.el.style.padding = '4px 8px';
@@ -53,12 +84,24 @@ export function Calendar({ events }: CalendarProps) {
           info.el.style.fontWeight = '500';
           info.el.style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
         }}
-        dayHeaderFormat={{ weekday: 'short', day: 'numeric' }}
-        slotLabelFormat={{
-          hour: 'numeric',
-          minute: '2-digit',
-          hour12: false
-        }}
+        dayHeaderFormat={ //cabeçalho de cada coluna do calendário.
+          {            
+            //day: 'numeric',
+            weekday: 'short'
+           }}
+        
+        slotLabelContent={() => null} // Remove os labels de hora
+        titleFormat={(date) => {
+            const text = date.date.marker.toLocaleDateString("pt-BR", {
+              month: "long",
+              year: "numeric",
+            });
+
+    const formatted =
+      text.charAt(0).toUpperCase() + text.slice(1);
+
+    return `📅 ${formatted}`;
+  }}
       />
     </Box>
   );

@@ -7,7 +7,12 @@ import ptBrLocale from "@fullcalendar/core/locales/pt-br";
 import dayjs from "dayjs";
 import { Box } from "@mui/material";
 import { colors } from "../../theme/colors";
+import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
+import { Typography } from "@mui/material";
+import { useState } from "react";
+import "dayjs/locale/pt-br";
 
+dayjs.locale("pt-br");
 
 interface CalendarProps {
   events: CalendarEvent[];
@@ -21,6 +26,7 @@ export function Calendar({ events }: CalendarProps) {
     const eventDate = dayjs(event.start.dateTime ?? event.start.date);
     return eventDate.isAfter(now.subtract(1, 'day')) && eventDate.isBefore(nextWeek.add(1, 'day'));
   });
+  const [currentDate, setCurrentDate] = useState(dayjs());
 
   
 
@@ -28,17 +34,17 @@ export function Calendar({ events }: CalendarProps) {
   
 
   return (
-    <Box sx={{ p: 2, backgroundColor: colors.surface, borderRadius: 2, fontFamily: "Roboto, sans-serif", "& .fc-toolbar-title": {
-      fontSize: "1.5rem",//24px
-      fontWeight: 400,
-      fontFamily: "Roboto, sans-serif",
-      lineHeight: 1.3,
-      letterSpacing: 0,
-      color: colors.textDim,
-    }, 
-    "& .fc-col-header-cell": {
-  backgroundColor: colors.surface,
+    <Box sx={{ p: 2,
+       backgroundColor: colors.surface, 
+       borderRadius: 2, fontFamily: "Roboto, sans-serif",
+       
+"& .fc-header-toolbar": {
+  display: "none",
 },
+
+    "& .fc-col-header-cell": {
+     backgroundColor: colors.surface,
+      },
 
 "& .fc-col-header-cell-cushion": { //cabeçalho de cada coluna do calendário
   fontSize: "15px",
@@ -47,6 +53,37 @@ export function Calendar({ events }: CalendarProps) {
   textDecoration: "none",
   padding: "10px 0",
 }}}>
+
+
+
+
+<Box
+  sx={{
+    display: "flex",
+    alignItems: "center",
+    gap: 1,
+    mb: 3,
+  }}
+>
+  <CalendarMonthRoundedIcon   //Ícone, mês e ano
+    sx={{
+      color: colors.textDim,
+      fontSize: 30,
+    }}
+  />
+
+  <Typography
+    variant="h5"
+    sx={{
+      color: colors.textDim,
+      fontWeight: 400,
+      fontFamily: "Roboto, sans-serif",
+    }}
+  >
+     {currentDate.format("MMMM [de] YYYY").replace(/^./, (c) => c.toUpperCase())} 
+        </Typography>
+</Box>
+
       <FullCalendar
         locale={ptBrLocale}
         firstDay={1}
@@ -58,6 +95,7 @@ export function Calendar({ events }: CalendarProps) {
         }}
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
         initialView="dayGridMonth"
+        initialDate={dayjs().format("YYYY-MM-DD")}
         events={filteredEvents.map((event) => ({
           id: event.id,
           title: event.start.dateTime
@@ -92,16 +130,22 @@ export function Calendar({ events }: CalendarProps) {
            }}
         
         slotLabelContent={() => null} // Remove os labels de hora
+
         titleFormat={(date) => {
+          console.log("date:" + date.date.marker.toISOString());
+
+
             const text = date.date.marker.toLocaleDateString("pt-BR", {
               month: "long",
               year: "numeric",
+              timeZone: "UTC"
+
             });
 
     const formatted =
       text.charAt(0).toUpperCase() + text.slice(1);
-
-    return `📅 ${formatted}`;
+      console.log(dayjs().format("YYYY-MM-DD"));
+      return formatted;
   }}
       />
     </Box>

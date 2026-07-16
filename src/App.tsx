@@ -9,6 +9,7 @@ import { Header } from "./components/Header/Header";
 import { colors } from "./theme/colors";
 
 const API_URL = import.meta.env.VITE_API_URL || 'https://family-dashboard-api.onrender.com';
+console.log("App: API_URL =", API_URL);
 
 function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -139,19 +140,16 @@ function App() {
       {error && <Typography sx={{ color: colors.red, p: 2 }}>{error}</Typography>}
 
       <Box sx={{ display: 'flex', height: 'calc(100vh - 64px)', backgroundColor: colors.bg }}>
-        <Box sx={{ width: '30%', p: 2, borderRight: `1px solid ${colors.border}`, overflow: 'auto', backgroundColor: colors.surface }}>
+        <Box sx={{ width: '15%', p: 2, borderRight: `1px solid ${colors.border}`, overflow: 'auto', backgroundColor: colors.surface }}>
           {/* Widget lateral */}
-          <Box sx={{ mb: 4 }}>
-            <Typography variant="h6" sx={{ mb: 2, color: colors.text }}>
-              Informações
-            </Typography>
-            <Typography variant="body1" sx={{ color: colors.textDim }}>
-              Conteúdo do widget (a definir)
-            </Typography>
-          </Box>
+
+
+          
+
           
           <WeatherWidget />
         </Box>
+
         <Box sx={{ flex: 1, overflow: 'auto', backgroundColor: colors.bg }}>
           <Calendar events={events} />
         </Box>

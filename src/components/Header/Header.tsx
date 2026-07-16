@@ -25,7 +25,8 @@ export function Header() {
   return (
     <AppBar position="static" sx={{ width: '100%', background: `linear-gradient(135deg, ${colors.surfaceHi} 0%, ${colors.surfaceHi} 100%)` }}>
       <Toolbar>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: colors.textDim }}>
+        <Typography variant="h5" component="div" sx={{ flexGrow: 1, color: colors.textDim, fontFamily: 'Roboto, sans-serif',     fontWeight: 600,
+ }}>
           Debora's Family Dashboard
         </Typography>
          <Typography

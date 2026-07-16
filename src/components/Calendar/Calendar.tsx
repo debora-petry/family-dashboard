@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { Box } from "@mui/material";
 import { colors } from "../../theme/colors";
 
+
 interface CalendarProps {
   events: CalendarEvent[];
 }

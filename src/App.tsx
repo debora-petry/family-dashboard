@@ -8,7 +8,7 @@ import { WeatherWidget } from "./components/WeatherWidget/WeatherWidget";
 import { Header } from "./components/Header/Header";
 import { colors } from "./theme/colors";
 
-const API_URL = 'http://localhost:3001';
+const API_URL = import.meta.env.VITE_API_URL || 'https://family-dashboard-api.onrender.com';
 
 function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);

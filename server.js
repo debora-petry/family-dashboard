@@ -53,7 +53,7 @@ app.get('/auth/callback', async (req, res) => {
       expires_at: Date.now() + (response.data.expires_in * 1000),
     };
 
-    res.redirect('http://localhost:5173?auth=success');
+    res.redirect(`${process.env.FRONTEND_URL}?auth=success`);
   } catch (error) {
     console.error('Error exchanging code for tokens:', error.response?.data || error);
     res.status(500).json({ error: 'Failed to exchange code for tokens' });
@@ -120,5 +120,5 @@ app.get("/", (req, res) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });

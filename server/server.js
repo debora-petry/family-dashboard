@@ -6,20 +6,19 @@ import fs from "fs";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const envPath = path.join(__dirname, ".env");
+const envPath = path.join(__dirname, ".env.development");
 
-if (fs.existsSync(envPath)) {
+if (process.env.NODE_ENV !== "production" && fs.existsSync(envPath)) {
   dotenv.config({ path: envPath });
 }
 
-import cors from 'cors';
-import axios from 'axios';
-import express from 'express';
-
-
+import cors from "cors";
+import axios from "axios";
+import express from "express";
 
 console.log("REDIRECT_URI =", process.env.REDIRECT_URI);
 console.log("CLIENT_ID =", process.env.GOOGLE_CLIENT_ID);
+console.log("FRONTEND_URL =", process.env.FRONTEND_URL);
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -27,16 +26,21 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+// Novo: usa o Refresh Token salvo no Render, se existir.
+// Caso contrário, continua usando o token em memória.
+//const refreshToken = process.env.GOOGLE_REFRESH_TOKEN;
+
 // Armazenamento em memória (em produção, use banco de dados)
 let tokens = {
   access_token: null,
   refresh_token: null,
-  expires_at: null
+  expires_at: null,
 };
 
 // Endpoint para iniciar login OAuth
-app.get('/auth/google', (req, res) => {
-  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
+app.get("/auth/google", (req, res) => {
+  const authUrl =
+    `https://accounts.google.com/o/oauth2/v2/auth?` +
     `client_id=${process.env.GOOGLE_CLIENT_ID}&` +
     `redirect_uri=${encodeURIComponent(process.env.REDIRECT_URI)}&` +
     `response_type=code&` +
@@ -48,40 +52,109 @@ app.get('/auth/google', (req, res) => {
 });
 
 // Callback do OAuth
-app.get('/auth/callback', async (req, res) => {
+app.get("/auth/callback", async (req, res) => {
   const { code } = req.query;
 
   if (!code) {
-    return res.status(400).json({ error: 'Missing code' });
+    return res.status(400).json({ error: "Missing code" });
   }
 
   try {
     // Troca o code por tokens
-    const response = await axios.post('https://oauth2.googleapis.com/token', {
+    const response = await axios.post("https://oauth2.googleapis.com/token", {
       code,
       client_id: process.env.GOOGLE_CLIENT_ID,
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
       redirect_uri: process.env.REDIRECT_URI,
-      grant_type: 'authorization_code',
+      grant_type: "authorization_code",
     });
+
+    console.log("REFRESH TOKEN:", response.data.refresh_token);
+    console.log("TOKENS RECEBIDOS:");
+    console.log(response.data);
+    console.log("REFRESH TOKEN:", response.data.refresh_token);
 
     tokens = {
       access_token: response.data.access_token,
       refresh_token: response.data.refresh_token,
-      expires_at: Date.now() + (response.data.expires_in * 1000),
+      expires_at: Date.now() + response.data.expires_in * 1000,
     };
 
     res.redirect(`${process.env.FRONTEND_URL}?auth=success`);
   } catch (error) {
-    console.error('Error exchanging code for tokens:', error.response?.data || error);
-    res.status(500).json({ error: 'Failed to exchange code for tokens' });
+    console.error(
+      "Error exchanging code for tokens:",
+      error.response?.data || error,
+    );
+    res.status(500).json({ error: "Failed to exchange code for tokens" });
   }
 });
 
 // Endpoint para obter access token válido
-app.get('/auth/token', async (req, res) => {
-  if (!tokens.refresh_token) {
-    return res.status(401).json({ error: 'Not authenticated' });
+app.get("/auth/token", async (req, res) => {
+  // Novo: prefere o Refresh Token salvo no Render.
+  // Se ele não existir, usa o token em memória (compatibilidade).
+  const activeRefreshToken =
+    process.env.GOOGLE_REFRESH_TOKEN || tokens.refresh_token;
+
+  // Código antigo:
+  // if (!tokens.refresh_token) {
+  if (!activeRefreshToken) {
+    return res.status(401).json({ error: "Not authenticated" });
+  }
+
+  // Se o access token ainda é válido (margem de 5 minutos),
+  // reutiliza o que está em memória.
+  if (
+    tokens.access_token &&
+    tokens.expires_at &&
+    tokens.expires_at > Date.now() + 300000
+  ) {
+    return res.json({ access_token: tokens.access_token });
+  }
+
+  try {
+    const response = await axios.post("https://oauth2.googleapis.com/token", {
+      client_id: process.env.GOOGLE_CLIENT_ID,
+      client_secret: process.env.GOOGLE_CLIENT_SECRET,
+
+      // Código antigo: token em memória
+      // refresh_token: tokens.refresh_token,
+
+      // Novo: token salvo no Render, se existir. Caso contrário, usa o token em memória.
+      refresh_token: activeRefreshToken,
+      grant_type: "refresh_token",
+    });
+
+    // Atualiza o cache em memória
+    tokens.access_token = response.data.access_token;
+    tokens.expires_at = Date.now() + response.data.expires_in * 1000;
+
+    // Normalmente o Google NÃO devolve um novo refresh token,
+    // mas se devolver, mantemos compatibilidade.
+    if (response.data.refresh_token) {
+      tokens.refresh_token = response.data.refresh_token;
+    }
+
+    res.json({
+      access_token: tokens.access_token,
+    });
+  } catch (error) {
+    console.error("Error refreshing token:", error.response?.data || error);
+
+    res.status(401).json({
+      error: "Failed to refresh token",
+    });
+  }
+});
+
+/* // Endpoint para obter access token válido
+app.get("/auth/token", async (req, res) => {
+  const activeRefreshToken =
+    process.env.GOOGLE_REFRESH_TOKEN || tokens.refresh_token;
+
+  if (!activeRefreshToken) {
+    return res.status(401).json({ error: "Not authenticated" });
   }
 
   // Se o token ainda é válido (com margem de 5 minutos)
@@ -91,28 +164,28 @@ app.get('/auth/token', async (req, res) => {
 
   // Refresh do token
   try {
-    const response = await axios.post('https://oauth2.googleapis.com/token', {
+    const response = await axios.post("https://oauth2.googleapis.com/token", {
       client_id: process.env.GOOGLE_CLIENT_ID,
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
-      refresh_token: tokens.refresh_token,
-      grant_type: 'refresh_token',
-    });
 
-    tokens = {
-      access_token: response.data.access_token,
-      refresh_token: tokens.refresh_token,
-      expires_at: Date.now() + (response.data.expires_in * 1000),
-    };
+      // Código antigo:
+      // refresh_token: tokens.refresh_token,
+
+      // Novo:
+      refresh_token: activeRefreshToken,
+
+      grant_type: "refresh_token",
+    });
 
     res.json({ access_token: tokens.access_token });
   } catch (error) {
-    console.error('Error refreshing token:', error.response?.data || error);
-    res.status(401).json({ error: 'Failed to refresh token' });
+    console.error("Error refreshing token:", error.response?.data || error);
+    res.status(401).json({ error: "Failed to refresh token" });
   }
-});
+}); */
 
 // Endpoint para logout
-app.post('/auth/logout', (req, res) => {
+app.post("/auth/logout", (req, res) => {
   tokens = {
     access_token: null,
     refresh_token: null,
@@ -122,7 +195,7 @@ app.post('/auth/logout', (req, res) => {
 });
 
 // Endpoint para verificar status
-app.get('/auth/status', (req, res) => {
+app.get("/auth/status", (req, res) => {
   res.json({
     authenticated: !!tokens.refresh_token,
     expires_at: tokens.expires_at,
@@ -145,7 +218,7 @@ app.get("/photos/albums", async (req, res) => {
         headers: {
           Authorization: `Bearer ${tokens.access_token}`,
         },
-      }
+      },
     );
 
     res.json(response.data);
@@ -154,8 +227,6 @@ app.get("/photos/albums", async (req, res) => {
     res.status(500).json(error.response?.data || error.message);
   }
 });
-
-
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

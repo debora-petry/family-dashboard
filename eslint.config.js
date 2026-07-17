@@ -17,6 +17,8 @@ export default [
       globals: globals.browser,
     },
 
+    
+
     settings: {
       react: {
         version: "detect",
@@ -38,4 +40,16 @@ export default [
       "react/no-unescaped-entities": "off",
     },
   },
+
+
+{
+    files: ["server/**/*.js"],
+
+    languageOptions: {
+      globals: globals.node,
+    },
+  },
+
+
+
 ];

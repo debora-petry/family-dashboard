@@ -17,6 +17,7 @@
     "@fullcalendar/interaction": "^6.1.21",
     "@fullcalendar/react": "^6.1.21",
     "@fullcalendar/timegrid": "^6.1.21",
+    "@google/generative-ai": "^0.24.1",
     "@meteocons/svg-static": "^0.1.0",
     "@mui/icons-material": "^9.2.0",
     "@mui/material": "^9.2.0",
@@ -32,7 +33,7 @@
     "react-dom": "^19.2.7"
   },
   "devDependencies": {
-  "@eslint/js": "^9.39.1",
+    "@eslint/js": "^9.39.1",
     "@types/node": "^24.13.2",
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",

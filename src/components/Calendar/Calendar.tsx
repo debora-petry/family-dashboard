@@ -11,6 +11,7 @@ import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import { Typography } from "@mui/material";
 import { useState } from "react";
 import "dayjs/locale/pt-br";
+import listPlugin from "@fullcalendar/list";
 
 dayjs.locale("pt-br");
 
@@ -90,15 +91,22 @@ export function Calendar({ events }: CalendarProps) {
 
       <FullCalendar
         locale={ptBrLocale}
-        firstDay={1}
+        firstDay={1} // Segunda-feira como primeiro dia da semana
         height="auto"
         headerToolbar={{
           left: "title",
           center: "",
           right: "",
         }}
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        initialView="dayGridMonth"
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+        //initialView="listMonth" // Renderiza como lista dos eventos do mês todo
+        initialView="dayGridTwoWeeks" // Renderiza 2 semanas
+        views={{
+          dayGridTwoWeeks: {
+            type: "dayGrid",
+            duration: { weeks: 2 },
+          },
+        }}
         initialDate={dayjs().format("YYYY-MM-DD")}
         events={filteredEvents.map((event) => ({
           id: event.id,

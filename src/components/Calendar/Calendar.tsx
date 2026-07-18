@@ -12,6 +12,7 @@ import { Typography } from "@mui/material";
 import { useState } from "react";
 import "dayjs/locale/pt-br";
 import listPlugin from "@fullcalendar/list";
+import { renderEventContent } from "./renderEventContent";
 
 dayjs.locale("pt-br");
 
@@ -31,6 +32,56 @@ export function Calendar({ events }: CalendarProps) {
     );
   });
   const [currentDate] = useState(dayjs());
+
+  function getEventIcon(summary: string) {
+    const normalizedText = summary
+      .normalize("NFD")
+      .replace(/\p{Diacritic}/gu, "")
+      .toLowerCase();
+
+    if (normalizedText.includes("beach") || normalizedText.includes("bt"))
+      return "bt";
+
+    if (normalizedText.includes("academia")) return "gym";
+
+    if (normalizedText.includes("ginastica")) return "gymJulia";
+
+    if (
+      normalizedText.includes("consulta") ||
+      normalizedText.includes("exame") ||
+      normalizedText.includes("hcpa") ||
+      normalizedText.includes("plantao") ||
+      normalizedText.includes("tele")
+    )
+      return "doctor";
+
+    if (normalizedText.includes("aniver") || normalizedText.includes("niver"))
+      return "birthday";
+
+    if (normalizedText.includes("viagem")) return "trip";
+
+    if (normalizedText.includes("festa")) return "party";
+
+    if (normalizedText.includes("psico")) return "psico";
+
+    if (
+      normalizedText.includes("massagem") ||
+      normalizedText.includes("drenagem")
+    )
+      return "spa";
+
+    if (normalizedText.includes("copa")) return "copa";
+
+    if (
+      normalizedText.includes("gat") ||
+      normalizedText.includes("vet") ||
+      normalizedText.includes("lola") ||
+      normalizedText.includes("bisnaguinha")
+    )
+      return "pet";
+
+    return undefined;
+  }
 
   return (
     <Box
@@ -108,6 +159,7 @@ export function Calendar({ events }: CalendarProps) {
           },
         }}
         initialDate={dayjs().format("YYYY-MM-DD")}
+        eventContent={renderEventContent}
         events={filteredEvents.map((event) => ({
           id: event.id,
           title: event.start.dateTime
@@ -122,6 +174,9 @@ export function Calendar({ events }: CalendarProps) {
           backgroundColor: colors.surfaceHi,
           borderColor: event.calendarColor || colors.accent,
           textColor: colors.textDim,
+          extendedProps: {
+            icon: getEventIcon(event.summary),
+          },
         }))}
         slotMinTime="06:00:00"
         slotMaxTime="23:00:00"

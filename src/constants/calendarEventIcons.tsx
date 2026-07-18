@@ -1,4 +1,4 @@
-/* import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
+import CakeOutlinedIcon from "@mui/icons-material/CakeOutlined";
 import LocalHospitalOutlinedIcon from "@mui/icons-material/LocalHospitalOutlined";
 import LuggageOutlinedIcon from "@mui/icons-material/LuggageOutlined";
 import WorkIcon from "@mui/icons-material/Work";
@@ -8,8 +8,11 @@ import SportsTennisOutlinedIcon from "@mui/icons-material/SportsTennisOutlined";
 import FitnessCenterOutlinedIcon from "@mui/icons-material/FitnessCenterOutlined";
 import CelebrationOutlinedIcon from "@mui/icons-material/CelebrationOutlined";
 import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
+import SportsSoccerOutlinedIcon from "@mui/icons-material/SportsSoccerOutlined";
+import SpaOutlinedIcon from "@mui/icons-material/SpaOutlined";
+import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 
-export const eventIcons = {
+export const calendarEventIcons = {
   birthday: <CakeOutlinedIcon fontSize="inherit" />,
   doctor: <LocalHospitalOutlinedIcon fontSize="inherit" />,
   trip: <LuggageOutlinedIcon fontSize="inherit" />,
@@ -20,4 +23,7 @@ export const eventIcons = {
   gym: <FitnessCenterOutlinedIcon fontSize="inherit" />,
   party: <CelebrationOutlinedIcon fontSize="inherit" />,
   pet: <PetsOutlinedIcon fontSize="inherit" />,
-} as const; */
+  copa: <SportsSoccerOutlinedIcon fontSize="inherit" />,
+  spa: <SpaOutlinedIcon fontSize="inherit" />,
+  psico: <PsychologyOutlinedIcon fontSize="inherit" />,
+};

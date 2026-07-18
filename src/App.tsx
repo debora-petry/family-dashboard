@@ -163,7 +163,7 @@ function App() {
       >
         <Box
           sx={{
-            width: "15%",
+            width: "20%",
             p: 2,
             borderRight: `1px solid ${colors.border}`,
             overflow: "auto",

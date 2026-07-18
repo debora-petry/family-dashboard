@@ -12,9 +12,9 @@ import { usePortoAlegreAlerts } from "../../hooks/usePortoAlegreAlerts";
 import { colors } from "../../theme/colors";
 
 const severityColors: Record<string, string> = {
-  Aviso: "#FFA500",
-  Alerta: "#FF6B6B",
-  Perigo: "#DC143C",
+  Aviso: colors.gold,
+  Alerta: colors.fcDad,
+  Perigo: colors.red,
 };
 
 export function Alerts() {
@@ -39,7 +39,7 @@ export function Alerts() {
   if (!alerts || alerts.length === 0) {
     return (
       <Alert severity="success" sx={{ mb: 2 }}>
-        Nenhum alerta de tempo severo em Porto Alegre
+        Nenhum alerta de tempo severo em Porto Alegre :)
       </Alert>
     );
   }

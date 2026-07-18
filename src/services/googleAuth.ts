@@ -1,13 +1,3 @@
-interface GoogleWindow extends Window {
-  google: {
-    accounts: {
-      oauth2: {
-        initTokenClient: (config: TokenClientConfig) => TokenClient;
-      };
-    };
-  };
-}
-
 interface TokenClientConfig {
   client_id: string;
   scope: string;
@@ -20,7 +10,15 @@ interface TokenClient {
 }
 
 declare global {
-  // No need to redeclare Window, GoogleWindow already extends it
+  interface Window {
+    google: {
+      accounts: {
+        oauth2: {
+          initTokenClient: (config: TokenClientConfig) => TokenClient;
+        };
+      };
+    };
+  }
 }
 
 let tokenClient: TokenClient | undefined;

@@ -21,7 +21,7 @@ export interface InmetAlert {
   regioes: string;
   geocodes: string;
 
-  //descricao: string;
+  descricao: string;
 
   aviso_cor: string;
 
@@ -29,7 +29,7 @@ export interface InmetAlert {
   severidade: string;
 
   riscos: string[];
-  instrucoes: string[];
+  //instrucoes: string[];
 }
 
 export interface InmetResponse {

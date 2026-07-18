@@ -1,10 +1,29 @@
-declare global {
-  interface Window {
-    google: any;
-  }
+interface GoogleWindow extends Window {
+  google: {
+    accounts: {
+      oauth2: {
+        initTokenClient: (config: TokenClientConfig) => TokenClient;
+      };
+    };
+  };
 }
 
-let tokenClient: any;
+interface TokenClientConfig {
+  client_id: string;
+  scope: string;
+  prompt: string;
+  callback: (response: TokenResponse) => void;
+}
+
+interface TokenClient {
+  requestAccessToken: () => void;
+}
+
+declare global {
+  interface Window extends GoogleWindow {}
+}
+
+let tokenClient: TokenClient | undefined;
 
 export interface TokenResponse {
   access_token: string;
@@ -13,14 +32,14 @@ export interface TokenResponse {
 
 export function initializeGoogleAuth(
   clientId: string,
-  onSuccess: (tokenResponse: TokenResponse) => void
+  onSuccess: (tokenResponse: TokenResponse) => void,
 ) {
   tokenClient = window.google.accounts.oauth2.initTokenClient({
     client_id: clientId,
     scope: "https://www.googleapis.com/auth/calendar.readonly",
     prompt: "consent",
 
-    callback: (response: any) => {
+    callback: (response: TokenResponse) => {
       if (response.access_token) {
         onSuccess({
           access_token: response.access_token,
@@ -33,7 +52,7 @@ export function initializeGoogleAuth(
 
 export function requestToken() {
   if (!tokenClient) {
-    throw new Error('Token client not initialized');
+    throw new Error("Token client not initialized");
   }
   tokenClient.requestAccessToken();
 }

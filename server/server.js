@@ -242,8 +242,10 @@ app.post("/auth/logout", (req, res) => {
 
 // Endpoint para verificar status
 app.get("/auth/status", (req, res) => {
+  const hasRefreshToken =
+    !!tokens.refresh_token || !!process.env.GOOGLE_REFRESH_TOKEN;
   res.json({
-    authenticated: !!tokens.refresh_token,
+    authenticated: hasRefreshToken,
     expires_at: tokens.expires_at,
   });
 });

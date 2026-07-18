@@ -1,5 +1,18 @@
 import axios from "axios";
 
+interface Calendar {
+  id: string;
+  summary: string;
+  backgroundColor: string;
+}
+
+interface GoogleCalendarEvent {
+  id: string;
+  summary: string;
+  start: { dateTime?: string; date?: string };
+  end: { dateTime?: string; date?: string };
+}
+
 export async function getUpcomingEvents(accessToken: string) {
   // Busca todos os calendários
   const calendarsResponse = await axios.get(
@@ -8,17 +21,17 @@ export async function getUpcomingEvents(accessToken: string) {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
-    }
+    },
   );
 
-  const calendars = calendarsResponse.data.items;
+  const calendars = calendarsResponse.data.items as Calendar[];
 
   // Busca eventos de todos os calendários
   const eventResponses = await Promise.all(
-    calendars.map((calendar: any) =>
+    calendars.map((calendar) =>
       axios.get(
         `https://www.googleapis.com/calendar/v3/calendars/${encodeURIComponent(
-          calendar.id
+          calendar.id,
         )}/events`,
         {
           headers: {
@@ -30,18 +43,18 @@ export async function getUpcomingEvents(accessToken: string) {
             orderBy: "startTime",
             timeMin: new Date().toISOString(),
           },
-        }
-      )
-    )
+        },
+      ),
+    ),
   );
 
   // Junta todos os eventos
   const events = eventResponses.flatMap((response, index) =>
-    response.data.items.map((event: any) => ({
+    response.data.items.map((event: GoogleCalendarEvent) => ({
       ...event,
       calendarName: calendars[index].summary,
       calendarColor: calendars[index].backgroundColor,
-    }))
+    })),
   );
 
   // Ordena por data

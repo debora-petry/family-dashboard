@@ -8,7 +8,7 @@ import {
   Alert,
 } from "@mui/material";
 import WarningIcon from "@mui/icons-material/Warning";
-import { useInmetAlerts } from "../../hooks/useInmetAlerts";
+import { usePortoAlegreAlerts } from "../../hooks/usePortoAlegreAlerts";
 import { colors } from "../../theme/colors";
 
 const severityColors: Record<string, string> = {
@@ -18,9 +18,9 @@ const severityColors: Record<string, string> = {
 };
 
 export function Alerts() {
-  const { alerts, inmetLoading, inmetError } = useInmetAlerts();
+  const { alerts, loading, error } = usePortoAlegreAlerts();
 
-  if (inmetLoading) {
+  if (loading) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", p: 2 }}>
         <CircularProgress size={24} />
@@ -28,23 +28,21 @@ export function Alerts() {
     );
   }
 
-  if (inmetError) {
+  if (error) {
     return (
       <Alert severity="error" sx={{ mb: 2 }}>
-        Erro ao carregar alertas: {inmetError}
+        Erro ao carregar alertas: {error}
       </Alert>
     );
   }
 
-  if (!alerts || !alerts.hoje || alerts.hoje.length === 0) {
+  if (!alerts || alerts.length === 0) {
     return (
       <Alert severity="success" sx={{ mb: 2 }}>
-        Nenhum alerta de tempo severo no momento
+        Nenhum alerta de tempo severo em Porto Alegre
       </Alert>
     );
   }
-
-  const allAlerts = [...(alerts.hoje || []), ...(alerts.futuro || [])];
 
   return (
     <Box sx={{ mb: 3 }}>
@@ -52,12 +50,12 @@ export function Alerts() {
         variant="h6"
         sx={{ mb: 2, display: "flex", alignItems: "center", gap: 1 }}
       >
-        <WarningIcon sx={{ color: colors.warning }} />
-        Alertas de Tempo Severo
+        <WarningIcon sx={{ color: colors.red }} />
+        Alertas - Porto Alegre
       </Typography>
 
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-        {allAlerts.map((alert) => (
+        {alerts.map((alert) => (
           <Card
             key={alert.id_aviso}
             sx={{

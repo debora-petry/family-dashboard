@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
+import { getInmetAlerts } from "./services/inmet.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,6 +38,40 @@ let tokens = {
   expires_at: null,
 };
 
+async function getValidAccessToken() {
+  const activeRefreshToken =
+    process.env.GOOGLE_REFRESH_TOKEN || tokens.refresh_token;
+
+  if (!activeRefreshToken) {
+    throw new Error("Not authenticated");
+  }
+
+  // Reutiliza o token se ainda for válido
+  if (
+    tokens.access_token &&
+    tokens.expires_at &&
+    tokens.expires_at > Date.now() + 300000
+  ) {
+    return tokens.access_token;
+  }
+
+  const response = await axios.post("https://oauth2.googleapis.com/token", {
+    client_id: process.env.GOOGLE_CLIENT_ID,
+    client_secret: process.env.GOOGLE_CLIENT_SECRET,
+    refresh_token: activeRefreshToken,
+    grant_type: "refresh_token",
+  });
+
+  tokens.access_token = response.data.access_token;
+  tokens.expires_at = Date.now() + response.data.expires_in * 1000;
+
+  if (response.data.refresh_token) {
+    tokens.refresh_token = response.data.refresh_token;
+  }
+
+  return tokens.access_token;
+}
+
 // Endpoint para iniciar login OAuth
 app.get("/auth/google", (req, res) => {
   const authUrl =
@@ -69,10 +104,10 @@ app.get("/auth/callback", async (req, res) => {
       grant_type: "authorization_code",
     });
 
-    console.log("REFRESH TOKEN:", response.data.refresh_token);
-    console.log("TOKENS RECEBIDOS:");
-    console.log(response.data);
-    console.log("REFRESH TOKEN:", response.data.refresh_token);
+    //console.log("TOKENS RECEBIDOS:");
+    //console.log(response.data);
+    //console.log("REFRESH TOKEN:", response.data.refresh_token);
+    console.log("ACCESS TOKEN:", response.data.access_token);
 
     tokens = {
       access_token: response.data.access_token,
@@ -90,7 +125,18 @@ app.get("/auth/callback", async (req, res) => {
   }
 });
 
-// Endpoint para obter access token válido
+app.get("/auth/token", async (req, res) => {
+  try {
+    const accessToken = await getValidAccessToken();
+    res.json({ access_token: accessToken });
+  } catch (error) {
+    res.status(401).json({
+      error: error.response?.data || error.message,
+    });
+  }
+});
+
+/* // Endpoint para obter access token válido
 app.get("/auth/token", async (req, res) => {
   // Novo: prefere o Refresh Token salvo no Render.
   // Se ele não existir, usa o token em memória (compatibilidade).
@@ -146,7 +192,7 @@ app.get("/auth/token", async (req, res) => {
       error: "Failed to refresh token",
     });
   }
-});
+}); */
 
 /* // Endpoint para obter access token válido
 app.get("/auth/token", async (req, res) => {
@@ -212,19 +258,44 @@ app.get("/", (req, res) => {
 
 app.get("/photos/albums", async (req, res) => {
   try {
+    const accessToken = await getValidAccessToken();
+
     const response = await axios.get(
       "https://photoslibrary.googleapis.com/v1/albums",
       {
         headers: {
-          Authorization: `Bearer ${tokens.access_token}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       },
     );
 
     res.json(response.data);
   } catch (error) {
-    console.error(error.response?.data || error);
-    res.status(500).json(error.response?.data || error.message);
+    console.error(error.response?.data || error.message);
+
+    res.status(error.response?.status || 500).json(
+      error.response?.data || {
+        error: error.message,
+      },
+    );
+  }
+});
+
+// ==============================
+// INMET
+// ==============================
+console.log("Registrando rota /api/inmet-alerts");
+
+app.get("/api/inmet-alerts", async (_req, res) => {
+  try {
+    const alerts = await getInmetAlerts();
+    res.json(alerts);
+  } catch (error) {
+    console.error("Erro ao buscar alertas do INMET:", error);
+
+    res.status(500).json({
+      error: "Erro ao buscar alertas do INMET",
+    });
   }
 });
 

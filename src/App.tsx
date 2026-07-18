@@ -9,6 +9,8 @@ import { WeatherWidget } from "./components/WeatherWidget/WeatherWidget";
 import { Header } from "./components/Header/Header";
 import { colors } from "./theme/colors";
 import { PicWidget } from "./components/PicWidget/PicWidget";
+import { useInmetAlerts } from "./hooks/useInmetAlerts.ts";
+import { Alerts } from "./components/Alerts/Alerts";
 
 const API_URL =
   import.meta.env.VITE_API_URL || "https://family-dashboard-api.onrender.com";
@@ -20,8 +22,10 @@ console.log("App: API_URL =", API_URL);
 function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-
   const { events, error } = useGoogleCalendar(accessToken);
+  const { alerts, inmetLoading, inmetError } = useInmetAlerts();
+
+  console.log(alerts);
 
   // Verifica status da autenticação ao carregar
   useEffect(() => {
@@ -171,7 +175,7 @@ function App() {
           }}
         >
           {/* Widget lateral */}
-
+          <Alerts />
           <WeatherWidget />
           <PicWidget />
         </Box>

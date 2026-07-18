@@ -20,7 +20,7 @@ interface TokenClient {
 }
 
 declare global {
-  interface Window extends GoogleWindow {}
+  // No need to redeclare Window, GoogleWindow already extends it
 }
 
 let tokenClient: TokenClient | undefined;

@@ -12,7 +12,7 @@ export interface InmetAlert {
   hora_inicio: string;
   hora_fim: string;
 
-  poligono: string;
+  //poligono: string;
 
   municipios: string;
   microrregioes: string;
@@ -21,7 +21,7 @@ export interface InmetAlert {
   regioes: string;
   geocodes: string;
 
-  descricao: string;
+  //descricao: string;
 
   aviso_cor: string;
 

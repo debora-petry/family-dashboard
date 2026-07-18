@@ -21,7 +21,7 @@ export interface InmetAlert {
   regioes: string;
   geocodes: string;
 
-  descricao: string;
+  //descricao: string;
 
   aviso_cor: string;
 

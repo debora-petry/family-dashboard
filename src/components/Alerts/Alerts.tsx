@@ -6,10 +6,16 @@ import {
   Chip,
   CircularProgress,
   Alert,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
 } from "@mui/material";
 import WarningIcon from "@mui/icons-material/Warning";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { usePortoAlegreAlerts } from "../../hooks/usePortoAlegreAlerts";
 import { colors } from "../../theme/colors";
+import type { InmetAlert } from "../../types/inmet";
 
 const severityColors: Record<string, string> = {
   Aviso: colors.gold,
@@ -18,7 +24,8 @@ const severityColors: Record<string, string> = {
 };
 
 export function Alerts() {
-  const { alerts, loading, error } = usePortoAlegreAlerts();
+  const { alerts: rawAlerts, loading, error } = usePortoAlegreAlerts();
+  const alerts = rawAlerts as InmetAlert[];
 
   if (loading) {
     return (
@@ -47,8 +54,16 @@ export function Alerts() {
   return (
     <Box sx={{ mb: 3 }}>
       <Typography
-        variant="h6"
-        sx={{ mb: 2, display: "flex", alignItems: "center", gap: 1 }}
+        variant="body1"
+        sx={{
+          mb: 2,
+          display: "flex",
+          alignItems: "center",
+          gap: 1,
+          fontFamily: "Roboto, sans-serif",
+          //fontWeight: "bold",
+          fontColor: colors.red,
+        }}
       >
         <WarningIcon sx={{ color: colors.red }} />
         Alertas - Porto Alegre
@@ -67,8 +82,8 @@ export function Alerts() {
               <Box
                 sx={{
                   display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "flex-start",
+                  flexDirection: "column",
+                  gap: 1,
                   mb: 1,
                 }}
               >
@@ -81,17 +96,10 @@ export function Alerts() {
                   sx={{
                     backgroundColor: severityColors[alert.severidade] || "#999",
                     color: "white",
+                    width: "fit-content",
                   }}
                 />
               </Box>
-
-              <Typography
-                variant="body2"
-                sx={{ color: "textSecondary", mb: 1 }}
-              >
-                <strong>Regiões afetadas:</strong>{" "}
-                {alert.regioes || alert.estados || "N/A"}
-              </Typography>
 
               <Typography
                 variant="body2"
@@ -119,20 +127,22 @@ export function Alerts() {
                   >
                     Riscos:
                   </Typography>
-                  <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
+                  <List sx={{ py: 0, px: 1 }}>
                     {alert.riscos.map((risco, idx) => (
-                      <Chip
-                        key={idx}
-                        label={risco}
-                        size="small"
-                        variant="outlined"
-                      />
+                      <ListItem key={idx} sx={{ py: 0.5, px: 0 }}>
+                        <ListItemIcon sx={{ minWidth: 24 }}>
+                          <FiberManualRecordIcon
+                            sx={{ fontSize: "0.6rem", color: colors.red }}
+                          />
+                        </ListItemIcon>
+                        <ListItemText primary={risco} />
+                      </ListItem>
                     ))}
-                  </Box>
+                  </List>
                 </Box>
               )}
 
-              {alert.instrucoes && alert.instrucoes.length > 0 && (
+              {/*    {alert.instrucoes && alert.instrucoes.length > 0 && (
                 <Box>
                   <Typography
                     variant="body2"
@@ -148,7 +158,7 @@ export function Alerts() {
                     </ul>
                   </Typography>
                 </Box>
-              )}
+              )} */}
             </CardContent>
           </Card>
         ))}

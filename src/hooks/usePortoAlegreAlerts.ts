@@ -40,22 +40,22 @@ function filterPortoAlegreAlerts(data: InmetResponse): InmetAlert[] {
   const allAlerts = [...(data.hoje || []), ...(data.futuro || [])];
 
   return allAlerts.filter((alert) => {
-    // Verifica se Porto Alegre está listado nos municípios
-    if (alert.municipios && alert.municipios.includes("Porto Alegre")) {
-      return true;
-    }
+    // Filtra APENAS alertas que afetam Porto Alegre (RS)
+    // municipios é uma string
+    const municipiosStr = alert.municipios || "";
 
-    // Verifica se está no estado RS
-    if (alert.estados && alert.estados.includes("RS")) {
-      return true;
-    }
+    const lowerMunicipios = municipiosStr.toLowerCase();
 
-    // Verifica se está na região (sul do Brasil)
-    if (alert.regioes && alert.regioes.includes("Sul")) {
-      // Melhor ter certeza: verifica se tem RS no estados também
-      if (alert.estados && alert.estados.includes("RS")) {
-        return true;
+    // Checa se contém "porto alegre" mas EXCLUI as outras cidades
+    if (lowerMunicipios.includes("porto alegre")) {
+      // Exclui Porto Alegre do Norte e Porto Alegre do Tocantins
+      if (
+        lowerMunicipios.includes("do norte") ||
+        lowerMunicipios.includes("do tocantins")
+      ) {
+        return false;
       }
+      return true;
     }
 
     return false;

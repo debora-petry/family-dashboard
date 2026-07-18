@@ -6,13 +6,8 @@ import {
   Chip,
   CircularProgress,
   Alert,
-  List,
-  ListItem,
-  ListItemIcon,
-  ListItemText,
 } from "@mui/material";
 import WarningIcon from "@mui/icons-material/Warning";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 import { usePortoAlegreAlerts } from "../../hooks/usePortoAlegreAlerts";
 import { colors } from "../../theme/colors";
 import type { InmetAlert } from "../../types/inmet";
@@ -61,8 +56,7 @@ export function Alerts() {
           alignItems: "center",
           gap: 1,
           fontFamily: "Roboto, sans-serif",
-          //fontWeight: "bold",
-          fontColor: colors.red,
+          color: colors.textDim,
         }}
       >
         <WarningIcon sx={{ color: colors.red }} />
@@ -75,7 +69,10 @@ export function Alerts() {
             key={alert.id_aviso}
             sx={{
               borderLeft: `4px solid ${severityColors[alert.severidade] || "#999"}`,
-              backgroundColor: "rgba(255, 165, 0, 0.05)",
+              backgroundColor: colors.bg,
+              boxShadow: "none",
+              border: `1px solid ${colors.border}`,
+              borderLeftWidth: "4px",
             }}
           >
             <CardContent>
@@ -87,7 +84,10 @@ export function Alerts() {
                   mb: 1,
                 }}
               >
-                <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+                <Typography
+                  variant="subtitle1"
+                  sx={{ fontWeight: "bold", color: colors.text }}
+                >
                   {alert.descricao}
                 </Typography>
                 <Chip
@@ -97,13 +97,15 @@ export function Alerts() {
                     backgroundColor: severityColors[alert.severidade] || "#999",
                     color: "white",
                     width: "fit-content",
+                    fontSize: "0.7rem",
+                    fontWeight: "bold",
                   }}
                 />
               </Box>
 
               <Typography
                 variant="body2"
-                sx={{ color: "textSecondary", mb: 1 }}
+                sx={{ color: colors.textDim, mb: 1, opacity: 0.9 }}
               >
                 <strong>Período:</strong>{" "}
                 {new Date(alert.data_inicio).toLocaleDateString("pt-BR")} às{" "}
@@ -123,22 +125,36 @@ export function Alerts() {
                 <Box sx={{ mb: 1 }}>
                   <Typography
                     variant="body2"
-                    sx={{ fontWeight: "bold", mb: 0.5 }}
+                    sx={{
+                      fontWeight: "bold",
+                      mb: 0.5,
+                      color: colors.text,
+                    }}
                   >
                     Riscos:
                   </Typography>
-                  <List sx={{ py: 0, px: 1 }}>
+                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
                     {alert.riscos.map((risco, idx) => (
-                      <ListItem key={idx} sx={{ py: 0.5, px: 0 }}>
-                        <ListItemIcon sx={{ minWidth: 24 }}>
-                          <FiberManualRecordIcon
-                            sx={{ fontSize: "0.6rem", color: colors.red }}
-                          />
-                        </ListItemIcon>
-                        <ListItemText primary={risco} />
-                      </ListItem>
+                      <Chip
+                        key={idx}
+                        label={risco}
+                        size="small"
+                        variant="outlined"
+                        sx={{
+                          borderColor: colors.border,
+                          color: colors.textDim,
+                          fontWeight: 500,
+                          fontSize: "0.7rem",
+                          height: "auto",
+                          "& .MuiChip-label": {
+                            display: "block",
+                            whiteSpace: "normal",
+                            padding: "4px 8px",
+                          },
+                        }}
+                      />
                     ))}
-                  </List>
+                  </Box>
                 </Box>
               )}
 

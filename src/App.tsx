@@ -8,7 +8,7 @@ import { WeatherWidget } from "./components/WeatherWidget/WeatherWidget";
 //import { InfoWidget } from "./components/InfoWidget/InfoWidget";
 import { Header } from "./components/Header/Header";
 import { colors } from "./theme/colors";
-import { PicWidget } from "./components/PicWidget/PicWidget";
+// import { PicWidget } from "./components/PicWidget/PicWidget";
 import { Alerts } from "./components/Alerts/Alerts";
 
 const API_URL =
@@ -173,7 +173,7 @@ function App() {
           {/* Widget lateral */}
           <Alerts />
           <WeatherWidget />
-          <PicWidget />
+          {/* <PicWidget /> */}
         </Box>
 
         <Box sx={{ flex: 1, overflow: "auto", backgroundColor: colors.bg }}>

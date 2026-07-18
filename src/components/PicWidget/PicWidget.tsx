@@ -1,3 +1,4 @@
+/*
 import { Box, Card, Typography } from "@mui/material";
 import { colors } from "../../theme/colors";
 
@@ -12,3 +13,4 @@ export function PicWidget() {
     </Box>
   );
 }
+*/

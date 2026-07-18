@@ -6,6 +6,8 @@ import { colors } from "../../theme/colors";
 import ClearDay from "@meteocons/svg-static/monochrome/clear-day.svg?react";
 import PartlyCloudyDay from "@meteocons/svg-static/monochrome/partly-cloudy-day.svg?react";
 import Cloudy from "@meteocons/svg-static/monochrome/cloudy.svg?react";
+import WeatherAlert from "@meteocons/svg-static/monochrome/weather-alert.svg?react";
+//https://cdn.meteocons.com/3.0.0-next.10/svg/monochrome/weather-alert.svg
 import Fog from "@meteocons/svg-static/monochrome/fog.svg?react";
 import Rain from "@meteocons/svg-static/monochrome/rain.svg?react";
 import Thunderstorms from "@meteocons/svg-static/monochrome/thunderstorms.svg?react";
@@ -269,9 +271,11 @@ export function WeatherWidget() {
 
   if (!weather) {
     return (
-      <Box sx={{ p: 2 }}>
+      <Box sx={{ mb: 2, background: colors.bg }}>
+        <WeatherAlert />
+
         <Typography sx={{ color: colors.textDim }}>
-          Erro ao carregar previsão
+          Erro ao carregar previsão do tempo :(
         </Typography>
       </Box>
     );

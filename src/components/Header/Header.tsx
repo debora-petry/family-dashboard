@@ -1,6 +1,7 @@
 import { AppBar, Toolbar, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { colors } from "../../theme/colors";
+import CottageOutlinedIcon from "@mui/icons-material/CottageOutlined";
 
 export function Header() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -35,34 +36,49 @@ export function Header() {
           variant="h5"
           component="div"
           sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 1,
             flexGrow: 1,
             color: colors.textDim,
             fontFamily: "Roboto, sans-serif",
             fontWeight: 600,
           }}
         >
-          Debora's Family Dashboard
+          <CottageOutlinedIcon
+            sx={{
+              fontSize: "2.2rem",
+              color: colors.textDim,
+              mt: "-7px",
+            }}
+          />
+          Família Wasem Petry
         </Typography>
         <Typography
           variant="body1"
-          sx={{ opacity: 0.9, fontWeight: 500, color: colors.textDim }}
+          sx={{
+            opacity: 0.9,
+            ml: 2,
+            fontWeight: 500,
+            color: colors.textDim,
+            fontSize: "1.05rem",
+          }}
         >
-          {new Date().toLocaleDateString("pt-BR", {
+          {`${new Date().toLocaleDateString("pt-BR", {
+            weekday: "long",
+            timeZone: "America/Sao_Paulo",
+          })} • ${new Date().toLocaleDateString("pt-BR", {
             day: "numeric",
             month: "long",
-            year: "numeric",
             timeZone: "America/Sao_Paulo",
-          })}
+          })}`}
         </Typography>
         <Typography
-          variant="h4"
+          variant="h3"
           sx={{ opacity: 0.9, ml: 2, fontWeight: 600, color: colors.textDim }}
         >
           {formatTime(currentTime)}
         </Typography>
-        {/*  <Typography variant="body2" sx={{ opacity: 0.8, ml: 2, color: colors.textDim }}>
-          Porto Alegre, RS
-        </Typography> */}
       </Toolbar>
     </AppBar>
   );

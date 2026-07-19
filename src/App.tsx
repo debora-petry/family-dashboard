@@ -5,10 +5,8 @@ import axios from "axios";
 import { useGoogleCalendar } from "./hooks/useGoogleCalendar";
 import { Calendar } from "./components/Calendar/Calendar";
 import { WeatherWidget } from "./components/WeatherWidget/WeatherWidget";
-//import { InfoWidget } from "./components/InfoWidget/InfoWidget";
 import { Header } from "./components/Header/Header";
 import { colors } from "./theme/colors";
-// import { PicWidget } from "./components/PicWidget/PicWidget";
 import { Alerts } from "./components/Alerts/Alerts";
 
 const API_URL =
@@ -128,7 +126,7 @@ function App() {
         }}
       >
         <Typography variant="h4" sx={{ color: colors.text, mb: 2 }}>
-          Debora's Family Dashboard
+          Família Wasem Petry
         </Typography>
 
         <Button

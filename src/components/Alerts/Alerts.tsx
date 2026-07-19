@@ -140,7 +140,7 @@ export function Alerts() {
                 <AccessTimeOutlinedIcon
                   sx={{ fontSize: "0.9rem", position: "relative", top: "-1px" }}
                 />
-                Até
+                Até{" "}
                 {new Date(alert.data_fim).toLocaleDateString("pt-BR", {
                   day: "2-digit",
                   month: "short",
@@ -150,71 +150,6 @@ export function Alerts() {
             </CardContent>
           </Card>
         ))}
-        {/*      {alerts.map((alert) => (
-          <Card
-            key={alert.id_aviso}
-            sx={{
-              borderLeft: `4px solid ${severityColors[alert.severidade] || "#999"}`,
-              backgroundColor: colors.bg,
-              boxShadow: "none",
-              border: `1px solid ${colors.border}`,
-              borderLeftWidth: "4px",
-            }}
-          >
-            <CardContent sx={{ p: 1.5, "&:last-child": { pb: 1.5 } }}>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 1,
-                  mb: 1,
-                }}
-              >
-                <Typography
-                  variant="subtitle2"
-                  sx={{ fontWeight: "bold", color: colors.text }}
-                >
-                  {alert.descricao}
-                </Typography>
-                <Chip
-                  label={alert.severidade}
-                  size="small"
-                  sx={{
-                    backgroundColor: severityColors[alert.severidade] || "#999",
-                    color: "white",
-                    width: "fit-content",
-                    fontSize: "0.65rem",
-                    fontWeight: "bold",
-                    height: "20px",
-                  }}
-                />
-              </Box>
-
-              <Typography
-                variant="caption"
-                sx={{
-                  color: colors.textDim,
-                  mb: 1,
-                  display: "block",
-                  opacity: 0.9,
-                }}
-              >
-                <strong>Período:</strong>{" "}
-                {new Date(alert.data_inicio).toLocaleDateString("pt-BR")} às{" "}
-                {alert.hora_inicio}
-                {alert.data_fim && (
-                  <>
-                    {" "}
-                    até {new Date(alert.data_fim).toLocaleDateString(
-                      "pt-BR",
-                    )}{" "}
-                    às {alert.hora_fim}
-                  </>
-                )}
-              </Typography>
-            </CardContent>
-          </Card>
-        ))} */}
       </Box>
     </Box>
   );

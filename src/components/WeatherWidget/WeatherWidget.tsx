@@ -317,7 +317,7 @@ export function WeatherWidget() {
               <Typography
                 sx={{
                   color: colors.textDim,
-                  fontSize: "3.0rem",
+                  fontSize: "2.5rem",
                   fontWeight: 500,
                   lineHeight: 1,
                 }}
@@ -330,7 +330,7 @@ export function WeatherWidget() {
                   alignItems: "center",
                   justifyContent: "center",
                   "& svg": {
-                    fontSize: "1.5rem",
+                    fontSize: "1.0rem",
                   },
                 }}
               >

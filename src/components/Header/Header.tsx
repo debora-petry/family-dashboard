@@ -29,6 +29,7 @@ export function Header() {
       sx={{
         width: "100%",
         background: `linear-gradient(135deg, ${colors.surfaceHi} 0%, ${colors.surfaceHi} 100%)`,
+        borderBottom: `2px solid ${colors.border}`,
       }}
     >
       <Toolbar>
@@ -47,7 +48,7 @@ export function Header() {
         >
           <CottageOutlinedIcon
             sx={{
-              fontSize: "2.2rem",
+              fontSize: "1.8rem",
               color: colors.textDim,
               mt: "-7px",
             }}
@@ -57,7 +58,7 @@ export function Header() {
         <Typography
           variant="body1"
           sx={{
-            opacity: 0.9,
+            opacity: 0.7,
             ml: 2,
             fontWeight: 500,
             color: colors.textDim,
@@ -75,7 +76,7 @@ export function Header() {
         </Typography>
         <Typography
           variant="h3"
-          sx={{ opacity: 0.9, ml: 2, fontWeight: 600, color: colors.textDim }}
+          sx={{ opacity: 0.9, ml: 2, fontWeight: 700, color: colors.textDim }}
         >
           {formatTime(currentTime)}
         </Typography>

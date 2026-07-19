@@ -26,4 +26,5 @@ export const calendarEventIcons = {
   copa: <SportsSoccerOutlinedIcon fontSize="inherit" />,
   spa: <SpaOutlinedIcon fontSize="inherit" />,
   psico: <PsychologyOutlinedIcon fontSize="inherit" />,
+  ferias: <CelebrationOutlinedIcon fontSize="inherit" />,
 };

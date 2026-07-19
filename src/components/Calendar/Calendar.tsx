@@ -63,6 +63,7 @@ export function Calendar({ events }: CalendarProps) {
     if (normalizedText.includes("festa")) return "party";
 
     if (normalizedText.includes("psico")) return "psico";
+    if (normalizedText.includes("ferias")) return "ferias";
 
     if (
       normalizedText.includes("massagem") ||

@@ -171,8 +171,9 @@ function App() {
           }}
         >
           {/* Widget lateral */}
-          <Alerts />
           <WeatherWidget />
+          <Alerts />
+
           {/* <PicWidget /> */}
         </Box>
 

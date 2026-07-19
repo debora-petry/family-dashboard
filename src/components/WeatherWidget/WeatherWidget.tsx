@@ -126,8 +126,8 @@ export function WeatherWidget() {
   }, []);
 
   const iconStyle = {
-    width: 72,
-    height: 72,
+    width: 90,
+    height: 90,
   };
 
   const forecastIconStyle = {
@@ -291,7 +291,7 @@ export function WeatherWidget() {
           <Box
             sx={{
               display: "flex",
-              alignItems: "center",
+              alignItems: "flex-start",
               justifyContent: "space-between",
             }}
           >
@@ -326,9 +326,7 @@ export function WeatherWidget() {
                 {dayjs().format("dddd, DD/MM")}
               </Typography>
             </Box>
-            <Typography variant="h3" sx={{ fontSize: "4rem" }}>
-              {weather.current.icon}
-            </Typography>
+            <Box sx={{ mt: -1 }}>{weather.current.icon}</Box>
           </Box>
 
           {/* Próximos 2 dias - resumo */}

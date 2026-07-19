@@ -9,7 +9,7 @@ import { Box } from "@mui/material";
 import { colors } from "../../theme/colors";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import { Typography } from "@mui/material";
-import { useState } from "react";
+//import { useState } from "react";
 import "dayjs/locale/pt-br";
 import listPlugin from "@fullcalendar/list";
 import { renderEventContent } from "./renderEventContent";
@@ -31,7 +31,7 @@ export function Calendar({ events }: CalendarProps) {
       eventDate.isBefore(nextWeek.add(1, "day"))
     );
   });
-  const [currentDate] = useState(dayjs());
+  //const [currentDate] = useState(dayjs());
 
   function getEventIcon(summary: string) {
     const normalizedText = summary
@@ -133,9 +133,8 @@ export function Calendar({ events }: CalendarProps) {
               fontFamily: "Roboto, sans-serif",
             }}
           >
-            {currentDate
-              .format("MMMM [de] YYYY")
-              .replace(/^./, (c) => c.toUpperCase())}
+            {dayjs().format("MMMM [de] YYYY").charAt(0).toUpperCase() +
+              dayjs().format("MMMM [de] YYYY").slice(1)}
           </Typography>
         }
       </Box>

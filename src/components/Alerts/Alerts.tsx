@@ -47,7 +47,15 @@ export function Alerts() {
   }
 
   return (
-    <Box sx={{ mb: 3 }}>
+    <Box
+      sx={{
+        mb: 3,
+        p: 2,
+        backgroundColor: colors.bg,
+        borderRadius: 2,
+        border: `1px solid ${colors.border}`,
+      }}
+    >
       <Typography
         variant="body1"
         sx={{
@@ -57,10 +65,11 @@ export function Alerts() {
           gap: 1,
           fontFamily: "Roboto, sans-serif",
           color: colors.textDim,
+          fontWeight: "bold",
         }}
       >
         <WarningIcon sx={{ color: colors.red }} />
-        Alertas - Porto Alegre
+        Alertas Inmet para POA
       </Typography>
 
       <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
@@ -75,7 +84,7 @@ export function Alerts() {
               borderLeftWidth: "4px",
             }}
           >
-            <CardContent>
+            <CardContent sx={{ p: 1.5, "&:last-child": { pb: 1.5 } }}>
               <Box
                 sx={{
                   display: "flex",
@@ -85,7 +94,7 @@ export function Alerts() {
                 }}
               >
                 <Typography
-                  variant="subtitle1"
+                  variant="subtitle2"
                   sx={{ fontWeight: "bold", color: colors.text }}
                 >
                   {alert.descricao}
@@ -97,15 +106,21 @@ export function Alerts() {
                     backgroundColor: severityColors[alert.severidade] || "#999",
                     color: "white",
                     width: "fit-content",
-                    fontSize: "0.7rem",
+                    fontSize: "0.65rem",
                     fontWeight: "bold",
+                    height: "20px",
                   }}
                 />
               </Box>
 
               <Typography
-                variant="body2"
-                sx={{ color: colors.textDim, mb: 1, opacity: 0.9 }}
+                variant="caption"
+                sx={{
+                  color: colors.textDim,
+                  mb: 1,
+                  display: "block",
+                  opacity: 0.9,
+                }}
               >
                 <strong>Período:</strong>{" "}
                 {new Date(alert.data_inicio).toLocaleDateString("pt-BR")} às{" "}
@@ -120,61 +135,6 @@ export function Alerts() {
                   </>
                 )}
               </Typography>
-
-              {alert.riscos && alert.riscos.length > 0 && (
-                <Box sx={{ mb: 1 }}>
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontWeight: "bold",
-                      mb: 0.5,
-                      color: colors.text,
-                    }}
-                  >
-                    Riscos:
-                  </Typography>
-                  <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
-                    {alert.riscos.map((risco, idx) => (
-                      <Chip
-                        key={idx}
-                        label={risco}
-                        size="small"
-                        variant="outlined"
-                        sx={{
-                          borderColor: colors.border,
-                          color: colors.textDim,
-                          fontWeight: 500,
-                          fontSize: "0.7rem",
-                          height: "auto",
-                          "& .MuiChip-label": {
-                            display: "block",
-                            whiteSpace: "normal",
-                            padding: "4px 8px",
-                          },
-                        }}
-                      />
-                    ))}
-                  </Box>
-                </Box>
-              )}
-
-              {/*    {alert.instrucoes && alert.instrucoes.length > 0 && (
-                <Box>
-                  <Typography
-                    variant="body2"
-                    sx={{ fontWeight: "bold", mb: 0.5 }}
-                  >
-                    Instruções:
-                  </Typography>
-                  <Typography variant="body2" component="div" sx={{ pl: 2 }}>
-                    <ul style={{ margin: 0, paddingLeft: 20 }}>
-                      {alert.instrucoes.map((instrucao, idx) => (
-                        <li key={idx}>{instrucao}</li>
-                      ))}
-                    </ul>
-                  </Typography>
-                </Box>
-              )} */}
             </CardContent>
           </Card>
         ))}

@@ -7,7 +7,6 @@ import ClearDay from "@meteocons/svg-static/monochrome/clear-day.svg?react";
 import PartlyCloudyDay from "@meteocons/svg-static/monochrome/partly-cloudy-day.svg?react";
 import Cloudy from "@meteocons/svg-static/monochrome/cloudy.svg?react";
 import WeatherAlert from "@meteocons/svg-static/monochrome/weather-alert.svg?react";
-//https://cdn.meteocons.com/3.0.0-next.10/svg/monochrome/weather-alert.svg
 import Fog from "@meteocons/svg-static/monochrome/fog.svg?react";
 import Rain from "@meteocons/svg-static/monochrome/rain.svg?react";
 import Thunderstorms from "@meteocons/svg-static/monochrome/thunderstorms.svg?react";
@@ -127,8 +126,8 @@ export function WeatherWidget() {
   }, []);
 
   const iconStyle = {
-    width: 120,
-    height: 120,
+    width: 70,
+    height: 70,
   };
 
   const forecastIconStyle = {
@@ -293,70 +292,75 @@ export function WeatherWidget() {
 
   return (
     <Box sx={{ mb: 4 }}>
-      {/* Previsão de hoje - maior */}
       <Card sx={{ mb: 2, background: colors.bg }}>
-        <CardContent sx={{ pt: 0, px: 2, pb: 2, "&:last-child": { pb: 2 } }}>
+        <CardContent
+          sx={{
+            pt: 0,
+            px: 1,
+            pb: 1,
+            "&:last-child": { pb: 1 },
+          }}
+        >
+          {/* Linha superior - temp e ícone */}
           <Box
             sx={{
               display: "flex",
-              //alignItems: "flex-start",
-              //justifyContent: "space-between",
-              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 1,
+              mb: 1,
             }}
           >
-            {" "}
-            {/* Temperatura + ícone */}
-            <Box
+            {/* Temp atual */}
+            <Typography
               sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-                mb: 1,
+                color: colors.textDim,
+                fontSize: "2.5rem",
+                fontWeight: 500,
+                lineHeight: 1.5,
               }}
             >
-              <Typography
-                sx={{
-                  color: colors.textDim,
-                  fontSize: "2.5rem",
-                  fontWeight: 500,
-                  lineHeight: 1,
-                }}
-              >
-                {weather.current.temp}°C
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  "& svg": {
-                    fontSize: "1.0rem",
-                  },
-                }}
-              >
-                {weather.current.icon}
-              </Box>
+              {weather.current.temp}°C
+            </Typography>
+
+            {/* Icone */}
+            <Box
+              sx={{
+                "& svg": {
+                  fontSize: "1.0rem",
+                },
+              }}
+            >
+              {weather.current.icon}
             </Box>
-            {/* Descrição */}
+          </Box>
+
+          {/* Linha inferior: Nome da condição atual */}
+          <Box
+            sx={{
+              mt: 0.5,
+              textAlign: "center",
+            }}
+          >
             <Typography
-              variant="h6"
+              variant="body1"
               sx={{
                 color: colors.textDim,
                 fontWeight: 500,
-                fontSize: "1.25rem",
-                lineHeight: 1.25,
-                mb: 0.25,
-                textAlign: "center",
+                mb: 1, // aumenta o espaço abaixo
               }}
             >
-              {translateWeather(weather.current.condition)}
+              {translateWeather(weather.current.condition.split(",")[0])}
             </Typography>
-            {/* Mínima / Máxima */}
+
             <Typography
-              variant="h6"
-              sx={{ color: colors.textDim, opacity: 0.8, textAlign: "center" }}
+              variant="body1"
+              sx={{
+                color: colors.textDim,
+                mt: 0.25,
+              }}
             >
-              {weather.current.minTemp}° • {weather.current.maxTemp}°{" "}
+              {weather.current.minTemp}° • {weather.current.maxTemp}°
             </Typography>
           </Box>
 

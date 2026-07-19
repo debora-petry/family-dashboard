@@ -43,6 +43,7 @@ const weatherTranslations: { [key: string]: string } = {
   Dry: "Seco",
   Hot: "Quente",
   Cold: "Frio",
+  "Shower In Vicinity": "Pancadas na região",
 };
 
 const translateWeather = (condition: string): string => {
@@ -80,7 +81,9 @@ export function WeatherWidget() {
         );
 
         const current = response.data.current_condition[0];
-        const forecast = response.data.weather.slice(0, 4); // Hoje + 3 dias
+        const forecast = response.data.weather.slice(0, 5); // Hoje + 4 dias
+        console.log(response.data.weather.length);
+        console.log(response.data.weather);
 
         setWeather({
           current: {
@@ -88,7 +91,6 @@ export function WeatherWidget() {
             minTemp: parseInt(forecast[0].mintempC),
             maxTemp: parseInt(forecast[0].maxtempC),
             condition: current.weatherDesc[0].value,
-            //icon: getWeatherIcon(current.weatherCode),
             icon: getWeatherIcon(Number(current.weatherCode)),
           },
           forecast: forecast.map(
@@ -107,7 +109,6 @@ export function WeatherWidget() {
               minTemp: parseInt(day.mintempC),
               maxTemp: parseInt(day.maxtempC),
               condition: day.hourly[0].weatherDesc[0].value,
-              //icon: getWeatherIcon(day.hourly[0].weatherCode),
               icon: getWeatherIcon(
                 Number(day.hourly[0].weatherCode),
                 forecastIconStyle,
@@ -126,17 +127,19 @@ export function WeatherWidget() {
   }, []);
 
   const iconStyle = {
-    width: 90,
-    height: 90,
+    width: 120,
+    height: 120,
   };
 
   const forecastIconStyle = {
-    width: 30,
-    height: 30,
+    width: 60,
+    height: 60,
   };
 
   const getWeatherIcon = (code: number, style = iconStyle): ReactNode => {
     //code = 374 //test code
+    console.error("Código de clima:", code);
+
     switch (code) {
       // Sunny
       case 113:
@@ -163,8 +166,6 @@ export function WeatherWidget() {
 
       // Cloudy
       case 119:
-      case 122:
-        //return <Cloudy style={style} />;
         return (
           <Cloudy
             style={{
@@ -178,9 +179,17 @@ export function WeatherWidget() {
       case 143:
       case 248:
       case 260:
-        return <Fog style={style} />;
+        return (
+          <Fog
+            style={{
+              ...style,
+              color: colors.textDim,
+            }}
+          />
+        );
 
       // Rain
+      case 122:
       case 176:
       case 263:
       case 266:
@@ -280,22 +289,31 @@ export function WeatherWidget() {
       </Box>
     );
   }
+  console.log("Weather object" + weather.forecast.map((f) => f.date));
 
   return (
     <Box sx={{ mb: 4 }}>
-      {}
-
       {/* Previsão de hoje - maior */}
       <Card sx={{ mb: 2, background: colors.bg }}>
-        <CardContent>
+        <CardContent sx={{ pt: 0, px: 2, pb: 2, "&:last-child": { pb: 2 } }}>
           <Box
             sx={{
               display: "flex",
-              alignItems: "flex-start",
-              justifyContent: "space-between",
+              //alignItems: "flex-start",
+              //justifyContent: "space-between",
+              flexDirection: "column",
             }}
           >
-            <Box>
+            {" "}
+            {/* Temperatura + ícone */}
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                mb: 1,
+              }}
+            >
               <Typography
                 sx={{
                   color: colors.textDim,
@@ -306,30 +324,43 @@ export function WeatherWidget() {
               >
                 {weather.current.temp}°C
               </Typography>
-              <Typography
-                variant="body1"
-                sx={{ color: colors.text, opacity: 0.9 }}
+              <Box
+                sx={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  "& svg": {
+                    fontSize: "5rem",
+                  },
+                }}
               >
-                {translateWeather(weather.current.condition)}
-              </Typography>
-              <Typography
-                variant="body2"
-                sx={{ color: colors.textDim, opacity: 0.8 }}
-              >
-                {weather.current.minTemp}° • {weather.current.maxTemp}°{" "}
-              </Typography>
-
-              <Typography
-                variant="body2"
-                sx={{ color: colors.textDim, opacity: 0.8, mt: 1 }}
-              >
-                {dayjs().format("dddd, DD/MM")}
-              </Typography>
+                {weather.current.icon}
+              </Box>
             </Box>
-            <Box sx={{ mt: -1 }}>{weather.current.icon}</Box>
+            {/* Descrição */}
+            <Typography
+              variant="h6"
+              sx={{
+                color: colors.textDim,
+                fontWeight: 500,
+                fontSize: "1.25rem",
+                lineHeight: 1.25,
+                mb: 0.25,
+                textAlign: "center",
+              }}
+            >
+              {translateWeather(weather.current.condition)}
+            </Typography>
+            {/* Mínima / Máxima */}
+            <Typography
+              variant="h6"
+              sx={{ color: colors.textDim, opacity: 0.8, textAlign: "center" }}
+            >
+              {weather.current.minTemp}° • {weather.current.maxTemp}°{" "}
+            </Typography>
           </Box>
 
-          {/* Próximos 2 dias - resumo */}
+          {/* Próximos 3 dias - resumo */}
           <Box
             sx={{
               display: "flex",
@@ -339,7 +370,7 @@ export function WeatherWidget() {
               borderTop: `1px solid ${colors.border}`,
             }}
           >
-            {weather.forecast.slice(1, 3).map((day, index) => (
+            {weather.forecast.slice(1, 4).map((day, index) => (
               <Box
                 key={index}
                 sx={{
@@ -354,7 +385,7 @@ export function WeatherWidget() {
                 <Box>
                   <Typography
                     variant="body1"
-                    sx={{ color: colors.text, fontWeight: "medium" }}
+                    sx={{ color: colors.textDim, fontWeight: "medium" }}
                   >
                     {dayjs(day.date).format("ddd").toUpperCase()}
                   </Typography>

@@ -43,6 +43,7 @@ const weatherTranslations: { [key: string]: string } = {
   Hot: "Quente",
   Cold: "Frio",
   "Shower In Vicinity": "Pancadas na região",
+  "Heavy Rain With Thunderstorm": "Tempestade",
 };
 
 const translateWeather = (condition: string): string => {
@@ -299,12 +300,11 @@ export function WeatherWidget() {
   //console.log("Weather object" + weather.forecast.map((f) => f.date));
 
   return (
-    <Box sx={{ mb: 4 }}>
+    <Box sx={{ borderRadius: 2 }}>
       {" "}
       {/* Container com margem inferior de 4 */}
       <Card sx={{ mb: 2, background: colors.bg }}>
         {" "}
-        {/* Card com margem inferior de 2 e cor de fundo */}
         <CardContent
           sx={{
             pt: 0, // padding superior = 0
@@ -383,7 +383,7 @@ export function WeatherWidget() {
               gap: 2,
               mt: 3,
               pt: 2,
-              borderTop: `1px solid ${colors.border}`,
+              borderTop: `1px solid ${colors.border}`, // Divider
             }}
           >
             {weather.forecast.slice(1, 4).map((day, index) => (
@@ -393,7 +393,6 @@ export function WeatherWidget() {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
-                  //justifyContent: "center",
                   textAlign: "center",
                   flex: 1,
                 }}

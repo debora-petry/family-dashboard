@@ -2,6 +2,7 @@ import { AppBar, Toolbar, Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { colors } from "../../theme/colors";
 import CottageOutlinedIcon from "@mui/icons-material/CottageOutlined";
+import "@fontsource/sacramento";
 
 export function Header() {
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -29,7 +30,6 @@ export function Header() {
       elevation={0}
       sx={{
         bgcolor: "transparent",
-        //backgroundColor: colors.surfaceHi,
         backgroundImage: "none",
         boxShadow: "none",
         py: 2,
@@ -64,9 +64,10 @@ export function Header() {
 
           <Typography
             sx={{
-              fontFamily: '"Instrument Serif", serif',
-              fontSize: "2rem",
-              fontWeight: 600,
+              //fontFamily: '"Instrument Serif", serif',
+              fontFamily: '"Sacramento", cursive',
+              fontSize: "2.5rem",
+              fontWeight: 700,
               letterSpacing: "0.08em",
               lineHeight: 1.1,
               color: colors.textDim,
@@ -84,6 +85,17 @@ export function Header() {
             lineHeight: 1,
           }}
         >
+          {" "}
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: 700,
+              color: colors.textDim,
+              lineHeight: 1,
+            }}
+          >
+            {formatTime(currentTime)}
+          </Typography>
           <Typography
             sx={{
               opacity: 0.65,
@@ -101,17 +113,6 @@ export function Header() {
               month: "long",
               timeZone: "America/Sao_Paulo",
             })}`}
-          </Typography>
-
-          <Typography
-            variant="h3"
-            sx={{
-              fontWeight: 700,
-              color: colors.textDim,
-              lineHeight: 1,
-            }}
-          >
-            {formatTime(currentTime)}
           </Typography>
         </Box>
       </Toolbar>

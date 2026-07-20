@@ -124,7 +124,7 @@ export function Calendar({ events }: CalendarProps) {
         //pl: 2,
 
         backgroundColor: colors.bg,
-        borderRadius: 1,
+        borderRadius: 2,
         mt: 0,
         fontFamily: "Roboto, sans-serif",
 

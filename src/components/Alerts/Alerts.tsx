@@ -49,15 +49,13 @@ export function Alerts() {
 
   return (
     <Box
-      sx={
-        {
-          /* mb: 3,
-        p: 2,
-        backgroundColor: colors.bg,
+      sx={{
+        mb: 3,
+        //p: 2,
+        //backgroundColor: colors.bg,
         borderRadius: 2,
-        border: `1px solid ${colors.border}`, */
-        }
-      }
+        //border: `1px solid ${colors.border}`,
+      }}
     >
       <Typography
         variant="body1"

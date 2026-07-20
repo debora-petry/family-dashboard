@@ -8,9 +8,7 @@ import dayjs from "dayjs";
 import { Box } from "@mui/material";
 import { colors } from "../../theme/colors";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-
 import { Typography } from "@mui/material";
-//import { useState } from "react";
 import "dayjs/locale/pt-br";
 import listPlugin from "@fullcalendar/list";
 import { renderEventContent } from "./renderEventContent";
@@ -24,14 +22,31 @@ interface CalendarProps {
 export function Calendar({ events }: CalendarProps) {
   // Filtrar eventos para próxima semana
   const now = dayjs();
-  const nextWeek = now.add(7, "day");
+  const next20Days = now.add(20, "day");
+  //const nextWeek = now.add(7, "day");
   const filteredEvents = events.filter((event) => {
-    const eventDate = dayjs(event.start.dateTime ?? event.start.date);
+    const start = dayjs(event.start.dateTime ?? event.start.date);
+    const end = dayjs(
+      event.end?.dateTime ??
+        event.end?.date ??
+        event.start.dateTime ??
+        event.start.date,
+    );
+
     return (
-      eventDate.isAfter(now.subtract(1, "day")) &&
-      eventDate.isBefore(nextWeek.add(1, "day"))
+      // Já começou até os próximos 20 dias
+      start.isBefore(next20Days.add(1, "day")) &&
+      // Ainda não terminou
+      end.isAfter(now.subtract(1, "day"))
     );
   });
+
+  /* const eventDate = dayjs(event.start.dateTime ?? event.start.date);
+    return (
+      eventDate.isAfter(now.subtract(1, "day")) &&
+      eventDate.isBefore(next20Days.add(1, "day"))
+    );
+  }); */
 
   function getEventIcon(summary: string) {
     const normalizedText = summary
@@ -39,7 +54,11 @@ export function Calendar({ events }: CalendarProps) {
       .replace(/\p{Diacritic}/gu, "")
       .toLowerCase();
 
-    if (normalizedText.includes("beach") || normalizedText.includes("bt"))
+    if (
+      normalizedText.includes("beach") ||
+      normalizedText.includes("bt") ||
+      normalizedText.includes("play")
+    )
       return "bt";
 
     if (normalizedText.includes("academia") || normalizedText.includes("acad"))

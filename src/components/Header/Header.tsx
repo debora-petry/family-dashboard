@@ -33,7 +33,7 @@ export function Header() {
         backgroundImage: "none",
         boxShadow: "none",
         py: 2,
-        mb: 3,
+        mb: 0,
         px: 3,
       }}
     >

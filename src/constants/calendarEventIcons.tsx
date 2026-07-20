@@ -16,6 +16,10 @@ import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
 //import FilterVintageOutlinedIcon from "@mui/icons-material/FilterVintageOutlined"; //flor
 import FormatPaintOutlinedIcon from "@mui/icons-material/FormatPaintOutlined"; //pincel
 import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
+import { FaTooth } from "react-icons/fa6";
+import LocalDiningOutlinedIcon from "@mui/icons-material/LocalDiningOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import StorefrontOutlinedIcon from "@mui/icons-material/StorefrontOutlined";
 
 export const calendarEventIcons = {
   birthday: <CakeOutlinedIcon fontSize="inherit" />,
@@ -28,10 +32,14 @@ export const calendarEventIcons = {
   gym: <FitnessCenterOutlinedIcon fontSize="inherit" />,
   party: <CelebrationOutlinedIcon fontSize="inherit" />,
   pet: <PetsOutlinedIcon fontSize="inherit" />,
-  copa: <SportsSoccerOutlinedIcon fontSize="inherit" />,
+  bola: <SportsSoccerOutlinedIcon fontSize="inherit" />,
   spa: <SpaOutlinedIcon fontSize="inherit" />,
   psico: <PsychologyOutlinedIcon fontSize="inherit" />,
   ferias: <CelebrationOutlinedIcon fontSize="inherit" />,
   obra: <FormatPaintOutlinedIcon fontSize="inherit" />,
   escola: <SchoolOutlinedIcon fontSize="inherit" />,
+  dentista: <FaTooth fontSize="inherit" />,
+  comida: <LocalDiningOutlinedIcon fontSize="inherit" />,
+  compras: <ShoppingCartOutlinedIcon fontSize="inherit" />,
+  feira: <StorefrontOutlinedIcon fontSize="inherit" />,
 };

@@ -7,8 +7,7 @@ import ptBrLocale from "@fullcalendar/core/locales/pt-br";
 import dayjs from "dayjs";
 import { Box } from "@mui/material";
 import { colors } from "../../theme/colors";
-import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
-import { Typography } from "@mui/material";
+//import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import "dayjs/locale/pt-br";
 import listPlugin from "@fullcalendar/list";
 import { renderEventContent } from "./renderEventContent";
@@ -64,6 +63,11 @@ export function Calendar({ events }: CalendarProps) {
     if (normalizedText.includes("academia") || normalizedText.includes("acad"))
       return "gym";
 
+    if (normalizedText.includes("shopping") || normalizedText.includes("super"))
+      return "compras";
+
+    if (normalizedText.includes("feira")) return "feira";
+
     if (normalizedText.includes("ginastica")) return "gymJulia";
 
     if (
@@ -94,6 +98,8 @@ export function Calendar({ events }: CalendarProps) {
 
     if (normalizedText.includes("ferias")) return "ferias";
 
+    if (normalizedText.includes("dentista")) return "dentista";
+
     if (
       normalizedText.includes("massagem") ||
       normalizedText.includes("drenagem")
@@ -101,7 +107,16 @@ export function Calendar({ events }: CalendarProps) {
       return "spa";
     if (normalizedText.includes("escola")) return "escola";
 
-    if (normalizedText.includes("copa")) return "copa";
+    if (
+      normalizedText.includes("copa") ||
+      normalizedText.includes("jogo") ||
+      normalizedText.includes("gremio") ||
+      normalizedText.includes("inter")
+    )
+      return "bola";
+
+    if (normalizedText.includes("janta") || normalizedText.includes("almoço"))
+      return "comida";
 
     if (
       normalizedText.includes("gat") ||
@@ -129,24 +144,39 @@ export function Calendar({ events }: CalendarProps) {
         fontFamily: "Roboto, sans-serif",
 
         "& .fc-header-toolbar": {
-          display: "none",
+          display: "none", //Esconde o header do FullCalendar (botão hoje, setas, e tipo de visualização)
         },
 
         "& .fc-col-header-cell": {
-          backgroundColor: colors.surfaceHi,
+          backgroundColor: colors.bg,
+          border: "none",
         },
 
         "& .fc-col-header-cell-cushion": {
           //cabeçalho de cada coluna do calendário
           fontSize: "15px",
           fontWeight: 400,
-          color: colors.text,
+          color: colors.textDim,
           textDecoration: "none",
           padding: "10px 0",
         },
+        "& .fc-scrollgrid": {
+          border: "none",
+        },
+        "& .fc-scrollgrid-section-header > *": {
+          border: "none",
+        },
+        "& .fc-daygrid-day-top": {
+          justifyContent: "flex-start !important",
+        },
+        "& .fc-daygrid-day-number": {
+          marginRight: "auto",
+          marginLeft: 0,
+          color: colors.textDim,
+        },
       }}
     >
-      <Box
+      {/*  <Box
         sx={{
           display: "flex",
           alignItems: "center",
@@ -174,17 +204,17 @@ export function Calendar({ events }: CalendarProps) {
               dayjs().format("MMMM [de] YYYY").slice(1)}
           </Typography>
         }
-      </Box>
+      </Box> */}
 
       <FullCalendar
         locale={ptBrLocale}
         firstDay={1} // Segunda-feira como primeiro dia da semana
         height="auto"
-        headerToolbar={{
-          left: "title",
-          center: "",
-          right: "",
-        }}
+        /*  headerToolbar={{
+          left: "prev,next today",
+          center: "title",
+          right: "dayGridMonth,timeGridWeek,timeGridDay",
+        }} */
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
         //initialView="listMonth" // Renderiza como lista dos eventos do mês todo
         initialView="dayGridTwoWeeks" // Renderiza 2 semanas
@@ -207,8 +237,8 @@ export function Calendar({ events }: CalendarProps) {
           start: event.start.dateTime ?? event.start.date,
           end: event.end.dateTime ?? event.end.date,
           display: "block",
-          backgroundColor: colors.bg,
-          borderColor: colors.accent,
+          backgroundColor: colors.surfaceHi,
+          borderColor: "transparent",
           textColor: colors.textDim,
           extendedProps: {
             icon: getEventIcon(event.summary),
@@ -229,12 +259,12 @@ export function Calendar({ events }: CalendarProps) {
           //cabeçalho de cada coluna do calendário.
           {
             //day: 'numeric',
-            weekday: "short",
+            weekday: "narrow", //
           }
         }
         slotLabelContent={() => null} // Remove os labels de hora
-        titleFormat={(date) => {
-          console.log("date:" + date.date.marker.toISOString());
+        /* titleFormat={(date) => {
+          //console.log("date:" + date.date.marker.toISOString());
 
           const text = date.date.marker.toLocaleDateString("pt-BR", {
             month: "long",
@@ -243,9 +273,9 @@ export function Calendar({ events }: CalendarProps) {
           });
 
           const formatted = text.charAt(0).toUpperCase() + text.slice(1);
-          console.log(dayjs().format("YYYY-MM-DD"));
-          return formatted;
-        }}
+          //console.log(dayjs().format("YYYY-MM-DD"));
+          return formatted; */
+        //}}
       />
     </Box>
   );

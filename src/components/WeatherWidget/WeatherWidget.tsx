@@ -300,10 +300,10 @@ export function WeatherWidget() {
   //console.log("Weather object" + weather.forecast.map((f) => f.date));
 
   return (
-    <Box sx={{ borderRadius: 2 }}>
+    <Box sx={{}}>
       {" "}
       {/* Container com margem inferior de 4 */}
-      <Card sx={{ mb: 2, background: colors.bg }}>
+      <Card sx={{ mb: 2, background: colors.bg, borderRadius: 2 }}>
         {" "}
         <CardContent
           sx={{

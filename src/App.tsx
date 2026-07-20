@@ -149,7 +149,7 @@ function App() {
       {/* Container principal da aplicação */}
       <Box
         sx={{
-          backgroundColor: colors.surfaceHi,
+          backgroundColor: colors.bg2,
           minHeight: "100vh",
           display: "flex",
           flexDirection: "column",

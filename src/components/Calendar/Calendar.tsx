@@ -141,6 +141,8 @@ export function Calendar({ events }: CalendarProps) {
         backgroundColor: colors.bg,
         borderRadius: 2,
         mt: 0,
+        mr: 2,
+
         fontFamily: "Roboto, sans-serif",
 
         "& .fc-header-toolbar": {

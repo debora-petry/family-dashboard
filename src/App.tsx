@@ -146,37 +146,54 @@ function App() {
 
   return (
     <>
-      <Header />
-
-      {error && (
-        <Typography sx={{ color: colors.red, p: 2 }}>{error}</Typography>
-      )}
-
+      {/* Container principal da aplicação */}
       <Box
         sx={{
+          backgroundColor: colors.surfaceHi,
+          minHeight: "100vh",
           display: "flex",
-          height: "calc(100vh - 64px)",
-          backgroundColor: colors.bg,
+          flexDirection: "column",
         }}
       >
+        <Header />
+
+        {error && (
+          <Typography sx={{ color: colors.red, p: 2 }}>{error}</Typography>
+        )}
+
         <Box
           sx={{
-            width: "20%",
-            p: 2,
-            borderRight: `1px solid ${colors.border}`,
-            overflow: "auto",
-            backgroundColor: colors.surface,
+            display: "flex",
+            //height: "calc(100vh - 64px)",
+            //backgroundColor: colors.red,
           }}
         >
           {/* Widget lateral */}
-          <WeatherWidget />
-          <Alerts />
-
-          {/* <PicWidget /> */}
-        </Box>
-
-        <Box sx={{ flex: 1, overflow: "auto", backgroundColor: colors.bg }}>
-          <Calendar events={events} />
+          <Box
+            sx={{
+              width: "20%",
+              p: 2,
+              //borderRight: `1px solid ${colors.border}`,
+              overflow: "auto", //mostra a barra apenas quando necessário
+              //backgroundColor: colors.surfaceHi,
+            }}
+          >
+            <WeatherWidget />
+            <Alerts />
+          </Box>{" "}
+          {/* fim do box do widget lateral */}
+          {/* Calendário */}
+          <Box
+            sx={{
+              //mb: 4,
+              flex: 1,
+              //overflow: "auto", //mostra a barra apenas quando necessário
+              //backgroundColor: colors.surfaceHi,
+            }}
+          >
+            <Calendar events={events} />
+          </Box>{" "}
+          {/* fim do box do calendário */}
         </Box>
       </Box>
     </>

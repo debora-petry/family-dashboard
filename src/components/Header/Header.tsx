@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Typography } from "@mui/material";
+import { AppBar, Toolbar, Typography, Box } from "@mui/material";
 import { useEffect, useState } from "react";
 import { colors } from "../../theme/colors";
 import CottageOutlinedIcon from "@mui/icons-material/CottageOutlined";
@@ -26,60 +26,94 @@ export function Header() {
   return (
     <AppBar
       position="static"
+      elevation={0}
       sx={{
-        width: "100%",
-        background: `linear-gradient(135deg, ${colors.surfaceHi} 0%, ${colors.surfaceHi} 100%)`,
-        borderBottom: `2px solid ${colors.border}`,
+        bgcolor: "transparent",
+        //backgroundColor: colors.surfaceHi,
+        backgroundImage: "none",
+        boxShadow: "none",
+        py: 2,
+        mb: 3,
+        px: 3,
       }}
     >
-      <Toolbar>
-        <Typography
-          variant="h5"
-          component="div"
+      <Toolbar
+        disableGutters
+        sx={{
+          minHeight: "unset !important",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <Box
           sx={{
             display: "flex",
-            alignItems: "center",
-            gap: 1,
-            flexGrow: 1,
-            color: colors.textDim,
-            fontFamily: "Roboto, sans-serif",
-            fontWeight: 600,
+            flexDirection: "column",
+            alignItems: "flex-start",
+            justifyContent: "center",
+            gap: 0.25,
           }}
         >
           <CottageOutlinedIcon
             sx={{
               fontSize: "1.8rem",
-              color: colors.textDim,
-              mt: "-7px",
+              color: colors.textFaint,
             }}
           />
-          Família Wasem Petry
-        </Typography>
-        <Typography
-          variant="body1"
+
+          <Typography
+            sx={{
+              fontFamily: '"Instrument Serif", serif',
+              fontSize: "3rem",
+              fontWeight: 600,
+              letterSpacing: "0.08em",
+              lineHeight: 1.1,
+              color: colors.textDim,
+            }}
+          >
+            Família Wasem Petry
+          </Typography>
+        </Box>
+
+        <Box
           sx={{
-            opacity: 0.7,
-            ml: 2,
-            fontWeight: 500,
-            color: colors.textDim,
-            fontSize: "1.05rem",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+            lineHeight: 1,
           }}
         >
-          {`${new Date().toLocaleDateString("pt-BR", {
-            weekday: "long",
-            timeZone: "America/Sao_Paulo",
-          })} • ${new Date().toLocaleDateString("pt-BR", {
-            day: "numeric",
-            month: "long",
-            timeZone: "America/Sao_Paulo",
-          })}`}
-        </Typography>
-        <Typography
-          variant="h3"
-          sx={{ opacity: 0.9, ml: 2, fontWeight: 700, color: colors.textDim }}
-        >
-          {formatTime(currentTime)}
-        </Typography>
+          <Typography
+            sx={{
+              opacity: 0.65,
+              fontWeight: 500,
+              color: colors.textDim,
+              fontSize: "1.05rem",
+              mb: 0.3,
+            }}
+          >
+            {`${new Date().toLocaleDateString("pt-BR", {
+              weekday: "long",
+              timeZone: "America/Sao_Paulo",
+            })} • ${new Date().toLocaleDateString("pt-BR", {
+              day: "numeric",
+              month: "long",
+              timeZone: "America/Sao_Paulo",
+            })}`}
+          </Typography>
+
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: 700,
+              color: colors.textDim,
+              lineHeight: 1,
+            }}
+          >
+            {formatTime(currentTime)}
+          </Typography>
+        </Box>
       </Toolbar>
     </AppBar>
   );

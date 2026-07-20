@@ -88,8 +88,9 @@ export function Calendar({ events }: CalendarProps) {
     <Box
       sx={{
         p: 2,
-        backgroundColor: colors.surface,
-        borderRadius: 2,
+        backgroundColor: colors.bg,
+        borderRadius: 1,
+        m: 2,
         fontFamily: "Roboto, sans-serif",
 
         "& .fc-header-toolbar": {
@@ -97,7 +98,7 @@ export function Calendar({ events }: CalendarProps) {
         },
 
         "& .fc-col-header-cell": {
-          backgroundColor: colors.surface,
+          backgroundColor: colors.surfaceHi,
         },
 
         "& .fc-col-header-cell-cushion": {
@@ -171,8 +172,8 @@ export function Calendar({ events }: CalendarProps) {
           start: event.start.dateTime ?? event.start.date,
           end: event.end.dateTime ?? event.end.date,
           display: "block",
-          backgroundColor: colors.surfaceHi,
-          borderColor: event.calendarColor || colors.accent,
+          backgroundColor: colors.bg,
+          borderColor: colors.accent,
           textColor: colors.textDim,
           extendedProps: {
             icon: getEventIcon(event.summary),

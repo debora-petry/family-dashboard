@@ -279,7 +279,15 @@ export function WeatherWidget() {
 
   if (!weather) {
     return (
-      <Box sx={{ mb: 2, background: colors.bg }}>
+      <Box
+        sx={{
+          mb: 2,
+          background: colors.bg,
+          "& svg": {
+            fontSize: "1.0rem",
+          },
+        }}
+      >
         <WeatherAlert />
 
         <Typography sx={{ color: colors.textDim }}>
@@ -288,17 +296,21 @@ export function WeatherWidget() {
       </Box>
     );
   }
-  console.log("Weather object" + weather.forecast.map((f) => f.date));
+  //console.log("Weather object" + weather.forecast.map((f) => f.date));
 
   return (
     <Box sx={{ mb: 4 }}>
+      {" "}
+      {/* Container com margem inferior de 4 */}
       <Card sx={{ mb: 2, background: colors.bg }}>
+        {" "}
+        {/* Card com margem inferior de 2 e cor de fundo */}
         <CardContent
           sx={{
-            pt: 0,
-            px: 1,
-            pb: 1,
-            "&:last-child": { pb: 1 },
+            pt: 0, // padding superior = 0
+            px: 1, // padding horizontal = 1 8px
+            pb: 1, // padding inferior = 1 = 8px
+            "&:last-child": { pb: 1 }, // mantém o padding inferior em 1 mesmo no último filho
           }}
         >
           {/* Linha superior - temp e ícone */}

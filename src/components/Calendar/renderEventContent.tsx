@@ -1,4 +1,3 @@
-//import type { EventContentArg } from "@fullcalendar/core";
 import { calendarEventIcons } from "../../constants/calendarEventIcons";
 
 export function renderEventContent(eventInfo: any) {

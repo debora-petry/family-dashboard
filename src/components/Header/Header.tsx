@@ -65,7 +65,7 @@ export function Header() {
           <Typography
             sx={{
               fontFamily: '"Instrument Serif", serif',
-              fontSize: "3rem",
+              fontSize: "2rem",
               fontWeight: 600,
               letterSpacing: "0.08em",
               lineHeight: 1.1,

@@ -8,6 +8,7 @@ import dayjs from "dayjs";
 import { Box } from "@mui/material";
 import { colors } from "../../theme/colors";
 import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
+
 import { Typography } from "@mui/material";
 //import { useState } from "react";
 import "dayjs/locale/pt-br";
@@ -31,7 +32,6 @@ export function Calendar({ events }: CalendarProps) {
       eventDate.isBefore(nextWeek.add(1, "day"))
     );
   });
-  //const [currentDate] = useState(dayjs());
 
   function getEventIcon(summary: string) {
     const normalizedText = summary
@@ -42,7 +42,8 @@ export function Calendar({ events }: CalendarProps) {
     if (normalizedText.includes("beach") || normalizedText.includes("bt"))
       return "bt";
 
-    if (normalizedText.includes("academia")) return "gym";
+    if (normalizedText.includes("academia") || normalizedText.includes("acad"))
+      return "gym";
 
     if (normalizedText.includes("ginastica")) return "gymJulia";
 
@@ -62,7 +63,16 @@ export function Calendar({ events }: CalendarProps) {
 
     if (normalizedText.includes("festa")) return "party";
 
-    if (normalizedText.includes("psico")) return "psico";
+    if (
+      normalizedText.includes("obra") ||
+      normalizedText.includes("engenheira") ||
+      normalizedText.includes("reforma")
+    )
+      return "obra";
+
+    if (normalizedText.includes("psico") || normalizedText.includes("mentoria"))
+      return "psico";
+
     if (normalizedText.includes("ferias")) return "ferias";
 
     if (
@@ -70,6 +80,7 @@ export function Calendar({ events }: CalendarProps) {
       normalizedText.includes("drenagem")
     )
       return "spa";
+    if (normalizedText.includes("escola")) return "escola";
 
     if (normalizedText.includes("copa")) return "copa";
 

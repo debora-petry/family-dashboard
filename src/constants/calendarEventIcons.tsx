@@ -11,6 +11,11 @@ import PetsOutlinedIcon from "@mui/icons-material/PetsOutlined";
 import SportsSoccerOutlinedIcon from "@mui/icons-material/SportsSoccerOutlined";
 import SpaOutlinedIcon from "@mui/icons-material/SpaOutlined";
 import PsychologyOutlinedIcon from "@mui/icons-material/PsychologyOutlined";
+//import FaceRetouchingNaturalOutlinedIcon from "@mui/icons-material/FaceRetouchingNaturalOutlined"; //menina
+//import SelfImprovementOutlinedIcon from "@mui/icons-material/SelfImprovementOutlined"; //yoga
+//import FilterVintageOutlinedIcon from "@mui/icons-material/FilterVintageOutlined"; //flor
+import FormatPaintOutlinedIcon from "@mui/icons-material/FormatPaintOutlined"; //pincel
+import SchoolOutlinedIcon from "@mui/icons-material/SchoolOutlined";
 
 export const calendarEventIcons = {
   birthday: <CakeOutlinedIcon fontSize="inherit" />,
@@ -27,4 +32,6 @@ export const calendarEventIcons = {
   spa: <SpaOutlinedIcon fontSize="inherit" />,
   psico: <PsychologyOutlinedIcon fontSize="inherit" />,
   ferias: <CelebrationOutlinedIcon fontSize="inherit" />,
+  obra: <FormatPaintOutlinedIcon fontSize="inherit" />,
+  escola: <SchoolOutlinedIcon fontSize="inherit" />,
 };

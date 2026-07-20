@@ -164,15 +164,16 @@ function App() {
         <Box
           sx={{
             display: "flex",
-            //height: "calc(100vh - 64px)",
-            //backgroundColor: colors.red,
           }}
         >
           {/* Widget lateral */}
           <Box
             sx={{
               width: "20%",
-              p: 2,
+              pt: 0,
+              pb: 2,
+              pl: 2,
+              pr: 2,
               //borderRight: `1px solid ${colors.border}`,
               overflow: "auto", //mostra a barra apenas quando necessário
               //backgroundColor: colors.surfaceHi,

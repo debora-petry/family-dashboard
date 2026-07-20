@@ -118,9 +118,14 @@ export function Calendar({ events }: CalendarProps) {
     <Box
       sx={{
         p: 2,
+        //pr: 2,
+        //pt: 0,
+        //pb: 2,
+        //pl: 2,
+
         backgroundColor: colors.bg,
         borderRadius: 1,
-        m: 2,
+        mt: 0,
         fontFamily: "Roboto, sans-serif",
 
         "& .fc-header-toolbar": {

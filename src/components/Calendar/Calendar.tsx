@@ -7,7 +7,6 @@ import ptBrLocale from "@fullcalendar/core/locales/pt-br";
 import dayjs from "dayjs";
 import { Box } from "@mui/material";
 import { colors } from "../../theme/colors";
-//import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import "dayjs/locale/pt-br";
 import listPlugin from "@fullcalendar/list";
 import { renderEventContent } from "./renderEventContent";
@@ -20,8 +19,8 @@ interface CalendarProps {
 
 export function Calendar({ events }: CalendarProps) {
   // Filtrar eventos para próxima semana
-  const now = dayjs();
-  const next20Days = now.add(20, "day");
+  //const now = dayjs();
+  //const next20Days = now.add(20, "day");
   //const nextWeek = now.add(7, "day");
   const filteredEvents = events.filter((event) => {
     const start = dayjs(event.start.dateTime ?? event.start.date);
@@ -31,12 +30,22 @@ export function Calendar({ events }: CalendarProps) {
         event.start.dateTime ??
         event.start.date,
     );
-
+    console.log({
+      title: event.summary,
+      start: start.format(),
+      end: end.format(),
+    });
+    const thirtyDaysAgo = dayjs().subtract(30, "day");
+    const twentyDaysAhead = dayjs().add(20, "day");
     return (
       // Já começou até os próximos 20 dias
-      start.isBefore(next20Days.add(1, "day")) &&
+      //start.isBefore(next20Days.add(1, "day")) &&
       // Ainda não terminou
-      end.isAfter(now.subtract(1, "day"))
+      //end.isAfter(now.subtract(30, "day"))
+      end.isAfter(thirtyDaysAgo) && start.isBefore(twentyDaysAhead)
+
+      //start.isAfter(now.subtract(30, "day")) &&
+      //start.isBefore(next20Days.add(1, "day"))
     );
   });
 
@@ -172,9 +181,10 @@ export function Calendar({ events }: CalendarProps) {
           justifyContent: "flex-start !important",
         },
         "& .fc-daygrid-day-number": {
-          marginRight: "auto",
-          marginLeft: 0,
+          display: "block",
+          width: "100%",
           color: colors.textDim,
+          textDecoration: "none",
         },
       }}
     >
@@ -218,7 +228,6 @@ export function Calendar({ events }: CalendarProps) {
           right: "dayGridMonth,timeGridWeek,timeGridDay",
         }} */
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
-        //initialView="listMonth" // Renderiza como lista dos eventos do mês todo
         initialView="dayGridTwoWeeks" // Renderiza 2 semanas
         views={{
           dayGridTwoWeeks: {
@@ -251,11 +260,19 @@ export function Calendar({ events }: CalendarProps) {
         displayEventTime={false}
         allDaySlot={true}
         eventDidMount={(info) => {
+          const now = dayjs();
+          const end = dayjs(info.event.end ?? info.event.start);
+
+          // Estiliza cada evento
           info.el.style.borderRadius = "8px";
           info.el.style.padding = "4px 8px";
           info.el.style.fontSize = "14px";
           info.el.style.fontWeight = "500";
           info.el.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+          info.el.style.marginBottom = "4px";
+          if (end.isBefore(now)) {
+            info.el.style.opacity = "0.45";
+          }
         }}
         dayHeaderFormat={
           //cabeçalho de cada coluna do calendário.
@@ -264,20 +281,26 @@ export function Calendar({ events }: CalendarProps) {
             weekday: "narrow", //
           }
         }
+        dayCellContent={(arg) => {
+          const day = dayjs(arg.date).format("D");
+          //const weekday = dayjs(arg.date).format("dd").charAt(0).toUpperCase();
+          //const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
+          //const weekday = weekdays[arg.date.getDay()];
+
+          return (
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                width: "100%",
+                px: 1,
+              }}
+            >
+              <span>{day}</span>
+            </Box>
+          );
+        }}
         slotLabelContent={() => null} // Remove os labels de hora
-        /* titleFormat={(date) => {
-          //console.log("date:" + date.date.marker.toISOString());
-
-          const text = date.date.marker.toLocaleDateString("pt-BR", {
-            month: "long",
-            year: "numeric",
-            timeZone: "UTC",
-          });
-
-          const formatted = text.charAt(0).toUpperCase() + text.slice(1);
-          //console.log(dayjs().format("YYYY-MM-DD"));
-          return formatted; */
-        //}}
       />
     </Box>
   );

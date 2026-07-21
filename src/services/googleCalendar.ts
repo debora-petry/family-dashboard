@@ -1,4 +1,6 @@
 import axios from "axios";
+import dayjs from "dayjs";
+import "dayjs/locale/pt-br";
 
 interface Calendar {
   id: string;
@@ -38,10 +40,11 @@ export async function getUpcomingEvents(accessToken: string) {
             Authorization: `Bearer ${accessToken}`,
           },
           params: {
-            maxResults: 20,
+            maxResults: 100,
             singleEvents: true,
             orderBy: "startTime",
-            timeMin: new Date().toISOString(),
+            timeMin: dayjs().subtract(30, "day").toISOString(),
+            timeMax: dayjs().add(20, "day").toISOString(),
           },
         },
       ),

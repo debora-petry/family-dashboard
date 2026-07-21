@@ -107,7 +107,7 @@ app.get("/auth/callback", async (req, res) => {
     //console.log("TOKENS RECEBIDOS:");
     //console.log(response.data);
     //console.log("REFRESH TOKEN:", response.data.refresh_token);
-    console.log("ACCESS TOKEN:", response.data.access_token);
+    //console.log("ACCESS TOKEN:", response.data.access_token);
 
     tokens = {
       access_token: response.data.access_token,

@@ -11,40 +11,8 @@ import Fog from "@meteocons/svg-static/monochrome/fog.svg?react";
 import Rain from "@meteocons/svg-static/monochrome/rain.svg?react";
 import Thunderstorms from "@meteocons/svg-static/monochrome/thunderstorms.svg?react";
 import Snow from "@meteocons/svg-static/monochrome/snow.svg?react";
-
+import { weatherTranslations } from "./weatherTranslations";
 import type { ReactNode } from "react";
-
-const weatherTranslations: { [key: string]: string } = {
-  Sunny: "Ensolarado",
-  Clear: "Limpo",
-  "Partly cloudy": "Parcialmente nublado",
-  Cloudy: "Nublado",
-  Overcast: "Encoberto",
-  Mist: "Neblina",
-  Fog: "Nevoeiro",
-  Rain: "Chuva",
-  "Light rain": "Chuva leve",
-  "Heavy rain": "Chuva forte",
-  Thunderstorm: "Tempestade",
-  "Thundery outbreaks": "Tempestades isoladas",
-  Snow: "Neve",
-  "Light snow": "Neve leve",
-  "Heavy snow": "Neve forte",
-  Sleet: "Granizo",
-  Hail: "Chuva de granizo",
-  Drizzle: "Chuvisco",
-  "Freezing drizzle": "Chuvisco congelante",
-  "Freezing rain": "Chuva congelante",
-  "Ice pellets": "Pelotas de gelo",
-  Blizzard: "Nevasca",
-  Windy: "Ventoso",
-  Humid: "Úmido",
-  Dry: "Seco",
-  Hot: "Quente",
-  Cold: "Frio",
-  "Shower In Vicinity": "Pancadas na região",
-  "Heavy Rain With Thunderstorm": "Tempestade",
-};
 
 const translateWeather = (condition: string): string => {
   return weatherTranslations[condition] || condition;

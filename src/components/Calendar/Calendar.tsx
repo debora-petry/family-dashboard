@@ -7,9 +7,11 @@ import ptBrLocale from "@fullcalendar/core/locales/pt-br";
 import dayjs from "dayjs";
 import { Box } from "@mui/material";
 import { colors } from "../../theme/colors";
+//import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import "dayjs/locale/pt-br";
 import listPlugin from "@fullcalendar/list";
 import { renderEventContent } from "./renderEventContent";
+import { getEventIcon } from "./getEventIcon";
 
 dayjs.locale("pt-br");
 
@@ -18,10 +20,6 @@ interface CalendarProps {
 }
 
 export function Calendar({ events }: CalendarProps) {
-  // Filtrar eventos para próxima semana
-  //const now = dayjs();
-  //const next20Days = now.add(20, "day");
-  //const nextWeek = now.add(7, "day");
   const filteredEvents = events.filter((event) => {
     const start = dayjs(event.start.dateTime ?? event.start.date);
     const end = dayjs(
@@ -37,137 +35,36 @@ export function Calendar({ events }: CalendarProps) {
     });
     const thirtyDaysAgo = dayjs().subtract(30, "day");
     const twentyDaysAhead = dayjs().add(20, "day");
-    return (
-      // Já começou até os próximos 20 dias
-      //start.isBefore(next20Days.add(1, "day")) &&
-      // Ainda não terminou
-      //end.isAfter(now.subtract(30, "day"))
-      end.isAfter(thirtyDaysAgo) && start.isBefore(twentyDaysAhead)
-
-      //start.isAfter(now.subtract(30, "day")) &&
-      //start.isBefore(next20Days.add(1, "day"))
-    );
+    return end.isAfter(thirtyDaysAgo) && start.isBefore(twentyDaysAhead);
   });
-
-  /* const eventDate = dayjs(event.start.dateTime ?? event.start.date);
-    return (
-      eventDate.isAfter(now.subtract(1, "day")) &&
-      eventDate.isBefore(next20Days.add(1, "day"))
-    );
-  }); */
-
-  function getEventIcon(summary: string) {
-    const normalizedText = summary
-      .normalize("NFD")
-      .replace(/\p{Diacritic}/gu, "")
-      .toLowerCase();
-
-    if (
-      normalizedText.includes("beach") ||
-      normalizedText.includes("bt") ||
-      normalizedText.includes("play")
-    )
-      return "bt";
-
-    if (normalizedText.includes("academia") || normalizedText.includes("acad"))
-      return "gym";
-
-    if (normalizedText.includes("shopping") || normalizedText.includes("super"))
-      return "compras";
-
-    if (normalizedText.includes("feira")) return "feira";
-
-    if (normalizedText.includes("ginastica")) return "gymJulia";
-
-    if (
-      normalizedText.includes("consulta") ||
-      normalizedText.includes("exame") ||
-      normalizedText.includes("hcpa") ||
-      normalizedText.includes("plantao") ||
-      normalizedText.includes("tele")
-    )
-      return "doctor";
-
-    if (normalizedText.includes("aniver") || normalizedText.includes("niver"))
-      return "birthday";
-
-    if (normalizedText.includes("viagem")) return "trip";
-
-    if (normalizedText.includes("festa")) return "party";
-
-    if (
-      normalizedText.includes("obra") ||
-      normalizedText.includes("engenheira") ||
-      normalizedText.includes("reforma")
-    )
-      return "obra";
-
-    if (normalizedText.includes("psico") || normalizedText.includes("mentoria"))
-      return "psico";
-
-    if (normalizedText.includes("ferias")) return "ferias";
-
-    if (normalizedText.includes("dentista")) return "dentista";
-
-    if (
-      normalizedText.includes("massagem") ||
-      normalizedText.includes("drenagem")
-    )
-      return "spa";
-    if (normalizedText.includes("escola")) return "escola";
-
-    if (
-      normalizedText.includes("copa") ||
-      normalizedText.includes("jogo") ||
-      normalizedText.includes("gremio") ||
-      normalizedText.includes("inter")
-    )
-      return "bola";
-
-    if (normalizedText.includes("janta") || normalizedText.includes("almoço"))
-      return "comida";
-
-    if (
-      normalizedText.includes("gat") ||
-      normalizedText.includes("vet") ||
-      normalizedText.includes("lola") ||
-      normalizedText.includes("bisnaguinha")
-    )
-      return "pet";
-
-    return undefined;
-  }
 
   return (
     <Box
       sx={{
         p: 2,
-        //pr: 2,
-        //pt: 0,
-        //pb: 2,
-        //pl: 2,
-
         backgroundColor: colors.bg,
         borderRadius: 2,
         mt: 0,
         mr: 2,
-
         fontFamily: "Roboto, sans-serif",
-
         "& .fc-header-toolbar": {
           display: "none", //Esconde o header do FullCalendar (botão hoje, setas, e tipo de visualização)
         },
-
         "& .fc-col-header-cell": {
           backgroundColor: colors.bg,
-          border: "none",
+          //border: "none",
+          borderColor: "rgba(0,0,0,0.05)",
+          borderTop: "none",
+          borderBottom: "none",
+          borderLeft: "none",
+          borderRight: "none",
         },
 
         "& .fc-col-header-cell-cushion": {
           //cabeçalho de cada coluna do calendário
           fontSize: "15px",
           fontWeight: 400,
-          color: colors.textDim,
+          color: colors.textFaint,
           textDecoration: "none",
           padding: "10px 0",
         },
@@ -186,47 +83,15 @@ export function Calendar({ events }: CalendarProps) {
           color: colors.textDim,
           textDecoration: "none",
         },
+        "& .fc-daygrid-day": {
+          borderColor: "rgba(0,0,0,0.05)",
+        },
       }}
     >
-      {/*  <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 1,
-          mb: 3,
-        }}
-      >
-        <CalendarMonthRoundedIcon //Ícone, mês e ano
-          sx={{
-            color: colors.textDim,
-            fontSize: 30,
-          }}
-        />
-
-        {
-          <Typography
-            variant="h5"
-            sx={{
-              color: colors.textDim,
-              fontWeight: 400,
-              fontFamily: "Roboto, sans-serif",
-            }}
-          >
-            {dayjs().format("MMMM [de] YYYY").charAt(0).toUpperCase() +
-              dayjs().format("MMMM [de] YYYY").slice(1)}
-          </Typography>
-        }
-      </Box> */}
-
       <FullCalendar
         locale={ptBrLocale}
         firstDay={1} // Segunda-feira como primeiro dia da semana
         height="auto"
-        /*  headerToolbar={{
-          left: "prev,next today",
-          center: "title",
-          right: "dayGridMonth,timeGridWeek,timeGridDay",
-        }} */
         plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
         initialView="dayGridTwoWeeks" // Renderiza 2 semanas
         views={{
@@ -264,11 +129,12 @@ export function Calendar({ events }: CalendarProps) {
           const end = dayjs(info.event.end ?? info.event.start);
 
           // Estiliza cada evento
-          info.el.style.borderRadius = "8px";
-          info.el.style.padding = "4px 8px";
+          info.el.style.borderRadius = "10px";
+          info.el.style.padding = "2px 8px";
           info.el.style.fontSize = "14px";
           info.el.style.fontWeight = "500";
-          info.el.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
+          info.el.style.margin = "2px 6px";
+          //info.el.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
           info.el.style.marginBottom = "4px";
           if (end.isBefore(now)) {
             info.el.style.opacity = "0.45";
@@ -282,21 +148,23 @@ export function Calendar({ events }: CalendarProps) {
           }
         }
         dayCellContent={(arg) => {
-          const day = dayjs(arg.date).format("D");
-          //const weekday = dayjs(arg.date).format("dd").charAt(0).toUpperCase();
-          //const weekdays = ["D", "S", "T", "Q", "Q", "S", "S"];
-          //const weekday = weekdays[arg.date.getDay()];
+          const isToday = dayjs(arg.date).isSame(dayjs(), "day");
 
           return (
             <Box
               sx={{
+                width: 28,
+                height: 28,
+                borderRadius: "50%",
                 display: "flex",
-                justifyContent: "space-between",
-                width: "100%",
-                px: 1,
+                alignItems: "center",
+                justifyContent: "center",
+                bgcolor: isToday ? colors.accent : "transparent",
+                color: isToday ? "#fff" : colors.textDim,
+                fontWeight: isToday ? 700 : 500,
               }}
             >
-              <span>{day}</span>
+              <span>{arg.date.getDate()}</span>
             </Box>
           );
         }}

@@ -174,9 +174,7 @@ function App() {
               pb: 2,
               pl: 2,
               pr: 2,
-              //borderRight: `1px solid ${colors.border}`,
               overflow: "auto", //mostra a barra apenas quando necessário
-              //backgroundColor: colors.surfaceHi,
             }}
           >
             <WeatherWidget />

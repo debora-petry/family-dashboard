@@ -84,7 +84,17 @@ export function Calendar({ events }: CalendarProps) {
           borderColor: "rgba(0,0,0,0.05)",
         },
         "& .fc-daygrid-event-harness": {
-          marginBottom: "4px",
+          marginBottom: "0px",
+        },
+        "& .fc-event": {
+          borderRadius: "10px",
+          //padding: "2px 8px",
+          fontSize: "14px",
+          fontWeight: 500,
+          lineHeight: "16px",
+        },
+        "& .fc-event-main": {
+          //padding: "2px 8px",
         },
         "& .fc-daygrid-day-events": {
           //Age no container de todos os eventos daquele dia.
@@ -117,6 +127,7 @@ export function Calendar({ events }: CalendarProps) {
         }}
         initialDate={dayjs().format("YYYY-MM-DD")}
         eventContent={renderEventContent}
+        //eventContent={(arg) => <>{arg.event.title}</>}
         events={filteredEvents.map((event) => ({
           id: event.id,
           title: event.start.dateTime
@@ -141,7 +152,7 @@ export function Calendar({ events }: CalendarProps) {
           const end = dayjs(info.event.end ?? info.event.start);
 
           // Estiliza cada evento
-          info.el.style.borderRadius = "10px";
+          //info.el.style.borderRadius = "10px";
           info.el.style.padding = "2px 8px";
           info.el.style.fontSize = "14px";
           info.el.style.fontWeight = "500";

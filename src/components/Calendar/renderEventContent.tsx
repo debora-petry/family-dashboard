@@ -12,6 +12,7 @@ export function renderEventContent(eventInfo: any) {
         display: "flex",
         alignItems: "center",
         gap: 4,
+        height: "100%",
         minWidth: 0, // 👈 importante
       }}
     >

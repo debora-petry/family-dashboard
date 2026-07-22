@@ -19,7 +19,7 @@ export function getEventIcon(summary: string) {
 
   if (normalizedText.includes("feira")) return "feira";
 
-  if (normalizedText.includes("ginastica")) return "gymJulia";
+  if (normalizedText.includes("gym")) return "gymJulia";
 
   if (
     normalizedText.includes("consulta") ||
@@ -39,7 +39,7 @@ export function getEventIcon(summary: string) {
 
   if (
     normalizedText.includes("obra") ||
-    normalizedText.includes("engenheira") ||
+    normalizedText.includes("eng") ||
     normalizedText.includes("reforma")
   )
     return "obra";
@@ -73,7 +73,8 @@ export function getEventIcon(summary: string) {
     normalizedText.includes("gat") ||
     normalizedText.includes("vet") ||
     normalizedText.includes("lola") ||
-    normalizedText.includes("bisnaguinha")
+    normalizedText.includes("bisnaguinha") ||
+    normalizedText.includes("potes")
   )
     return "pet";
 

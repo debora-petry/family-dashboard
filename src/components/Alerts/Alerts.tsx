@@ -41,9 +41,15 @@ export function Alerts() {
 
   if (!alerts || alerts.length === 0) {
     return (
-      <Alert severity="success" sx={{ mb: 2 }}>
-        Nenhum alerta de tempo severo em Porto Alegre :)
-      </Alert>
+      <Box
+        sx={{
+          p: 2,
+          fontFamily: "Roboto, sans-serif",
+          color: colors.textDim,
+        }}
+      >
+        Oba! Nenhum alerta de tempo severo em Porto Alegre :)
+      </Box>
     );
   }
 

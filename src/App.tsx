@@ -7,7 +7,7 @@ import { Calendar } from "./components/Calendar/Calendar";
 import { WeatherWidget } from "./components/WeatherWidget/WeatherWidget";
 import { Header } from "./components/Header/Header";
 import { colors } from "./theme/colors";
-import { Alerts } from "./components/Alerts/Alerts";
+//import { Alerts } from "./components/Alerts/Alerts";
 
 const API_URL =
   import.meta.env.VITE_API_URL || "https://family-dashboard-api.onrender.com";
@@ -178,7 +178,7 @@ function App() {
             }}
           >
             <WeatherWidget />
-            <Alerts />
+            {/*  <Alerts /> */}
           </Box>{" "}
           {/* fim do box do widget lateral */}
           {/* Calendário */}

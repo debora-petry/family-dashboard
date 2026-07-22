@@ -86,13 +86,31 @@ export function Calendar({ events }: CalendarProps) {
         "& .fc-daygrid-day": {
           borderColor: "rgba(0,0,0,0.05)",
         },
+        "& .fc-daygrid-event-harness": {
+          marginBottom: "4px",
+        },
+        "& .fc-daygrid-day-events": {
+          //Age no container de todos os eventos daquele dia.
+          //paddingLeft: "4px",
+          //paddingRight: "4px",
+          //overflow: "hidden",
+        },
+        /*  "& .fc-event-title": {
+          overflow: "hidden", //Se não couber, esconde o excesso (hidden).
+          whiteSpace: "nowrap", //Não quebra a linha (nowrap).
+          textOverflow: "ellipsis", //Em vez de cortar abruptamente, coloca ... (ellipsis).
+          display: "block",
+        }, */
       }}
     >
       <FullCalendar
         locale={ptBrLocale}
         firstDay={1} // Segunda-feira como primeiro dia da semana
-        height="auto"
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin, listPlugin]}
+        //height="auto"
+        //contentHeight="auto"
+        eventDisplay="block"
+        height={700}
+        plugins={[dayGridPlugin]}
         initialView="dayGridTwoWeeks" // Renderiza 2 semanas
         views={{
           dayGridTwoWeeks: {
@@ -120,10 +138,7 @@ export function Calendar({ events }: CalendarProps) {
             icon: getEventIcon(event.summary),
           },
         }))}
-        slotMinTime="06:00:00"
-        slotMaxTime="23:00:00"
         displayEventTime={false}
-        allDaySlot={true}
         eventDidMount={(info) => {
           const now = dayjs();
           const end = dayjs(info.event.end ?? info.event.start);
@@ -133,9 +148,6 @@ export function Calendar({ events }: CalendarProps) {
           info.el.style.padding = "2px 8px";
           info.el.style.fontSize = "14px";
           info.el.style.fontWeight = "500";
-          info.el.style.margin = "2px 6px";
-          //info.el.style.boxShadow = "0 2px 4px rgba(0,0,0,0.1)";
-          info.el.style.marginBottom = "4px";
           if (end.isBefore(now)) {
             info.el.style.opacity = "0.45";
           }
@@ -143,7 +155,6 @@ export function Calendar({ events }: CalendarProps) {
         dayHeaderFormat={
           //cabeçalho de cada coluna do calendário.
           {
-            //day: 'numeric',
             weekday: "narrow", //
           }
         }
@@ -168,7 +179,7 @@ export function Calendar({ events }: CalendarProps) {
             </Box>
           );
         }}
-        slotLabelContent={() => null} // Remove os labels de hora
+        //slotLabelContent={() => null} // Remove os labels de hora
       />
     </Box>
   );

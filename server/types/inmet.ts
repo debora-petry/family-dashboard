@@ -29,7 +29,6 @@ export interface InmetAlert {
   severidade: string;
 
   riscos: string[];
-  //instrucoes: string[];
 }
 
 export interface InmetResponse {

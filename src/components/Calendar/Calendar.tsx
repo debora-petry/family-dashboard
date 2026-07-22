@@ -1,7 +1,5 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
 import type { CalendarEvent } from "../../types/calendar";
 import ptBrLocale from "@fullcalendar/core/locales/pt-br";
 import dayjs from "dayjs";
@@ -9,7 +7,6 @@ import { Box } from "@mui/material";
 import { colors } from "../../theme/colors";
 //import CalendarMonthRoundedIcon from "@mui/icons-material/CalendarMonthRounded";
 import "dayjs/locale/pt-br";
-import listPlugin from "@fullcalendar/list";
 import { renderEventContent } from "./renderEventContent";
 import { getEventIcon } from "./getEventIcon";
 

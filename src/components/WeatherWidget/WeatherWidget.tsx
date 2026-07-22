@@ -129,8 +129,8 @@ export function WeatherWidget() {
   return (
     <Box sx={{}}>
       {" "}
-      {/* Container com margem inferior de 4 */}
-      <Card sx={{ mb: 2, background: colors.bg, borderRadius: 2 }}>
+      {/* Container */}
+      <Card sx={{ mb: 0, background: colors.bg, borderRadius: 2 }}>
         {" "}
         <CardContent
           sx={{
@@ -208,8 +208,8 @@ export function WeatherWidget() {
             sx={{
               display: "flex",
               gap: 2,
-              mt: 3,
-              pt: 2,
+              mt: 1,
+              pt: 1,
               borderTop: `1px solid ${alpha(colors.textFaint, 0.5)}`, // Divider
             }}
           >
@@ -257,9 +257,9 @@ export function WeatherWidget() {
           <Box
             sx={{
               display: "flex",
-              gap: 2,
-              mt: 3,
-              pt: 2,
+              gap: 1,
+              mt: 1,
+              pt: 1,
               borderTop: `1px solid ${alpha(colors.textFaint, 0.5)}`, // Divider 2
             }}
           ></Box>

@@ -43,7 +43,7 @@ export function Alerts() {
     return (
       <Box
         sx={{
-          p: 2,
+          p: 1,
           fontFamily: "Roboto, sans-serif",
           color: colors.textDim,
         }}
@@ -56,7 +56,7 @@ export function Alerts() {
   return (
     <Box
       sx={{
-        mb: 3,
+        mb: 2,
         //p: 2,
         //backgroundColor: colors.bg,
         borderRadius: 2,

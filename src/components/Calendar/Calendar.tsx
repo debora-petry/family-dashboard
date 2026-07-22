@@ -103,10 +103,10 @@ export function Calendar({ events }: CalendarProps) {
       <FullCalendar
         locale={ptBrLocale}
         firstDay={1} // Segunda-feira como primeiro dia da semana
-        //height="auto"
+        height="auto" // Altura dos dias
         //contentHeight="auto"
         eventDisplay="block"
-        height={700}
+        //height={700}
         plugins={[dayGridPlugin]}
         initialView="dayGridTwoWeeks" // Renderiza 2 semanas
         views={{

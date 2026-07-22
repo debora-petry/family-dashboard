@@ -91,7 +91,10 @@ export function Calendar({ events }: CalendarProps) {
           //padding: "2px 8px",
           fontSize: "14px",
           fontWeight: 500,
-          lineHeight: "16px",
+          //lineHeight: "16px",
+        },
+        "& .fc-daygrid-event": {
+          marginBottom: "4px",
         },
         "& .fc-event-main": {
           //padding: "2px 8px",

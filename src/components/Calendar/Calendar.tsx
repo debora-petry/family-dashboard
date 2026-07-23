@@ -38,7 +38,7 @@ export function Calendar({ events }: CalendarProps) {
   return (
     <Box
       sx={{
-        p: 2,
+        p: 1,
         backgroundColor: colors.bg,
         borderRadius: 2,
         mt: 0,
@@ -63,7 +63,7 @@ export function Calendar({ events }: CalendarProps) {
           fontWeight: 400,
           color: colors.textFaint,
           textDecoration: "none",
-          padding: "10px 0",
+          padding: "2px 0",
         },
         "& .fc-scrollgrid": {
           border: "none",
@@ -92,6 +92,15 @@ export function Calendar({ events }: CalendarProps) {
           fontSize: "14px",
           fontWeight: 500,
           //lineHeight: "16px",
+        },
+        "& .fc-event:not(.fc-event-start)": {
+          borderTopLeftRadius: "10px",
+          borderBottomLeftRadius: "10px",
+        },
+
+        "& .fc-event:not(.fc-event-end)": {
+          borderTopRightRadius: "10px",
+          borderBottomRightRadius: "10px",
         },
         "& .fc-daygrid-event": {
           marginBottom: "2px",

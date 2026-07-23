@@ -130,8 +130,11 @@ export function WeatherWidget() {
     <Box sx={{}}>
       {" "}
       {/* Container */}
-      <Card sx={{ mb: 0, background: colors.bg, borderRadius: 2 }}>
-        {" "}
+      <Card
+        elevation={0}
+        sx={{ mb: 0, background: colors.bg, borderRadius: 2 }}
+      >
+        {/*Remove sombra padrão do Card do MUI{" "} */}
         <CardContent
           sx={{
             pt: 0, // padding superior = 0

@@ -49,12 +49,10 @@ export function Calendar({ events }: CalendarProps) {
         },
         "& .fc-col-header-cell": {
           backgroundColor: colors.bg,
-          //border: "none",
-          borderColor: "rgba(0,0,0,0.05)",
-          borderTop: "none",
-          borderBottom: "none",
-          borderLeft: "none",
-          borderRight: "none",
+          border: "none !important",
+        },
+        "& .fc-col-header": {
+          border: "none !important",
         },
 
         "& .fc-col-header-cell-cushion": {
@@ -67,9 +65,15 @@ export function Calendar({ events }: CalendarProps) {
         },
         "& .fc-scrollgrid": {
           border: "none",
+          "& td, & th": {
+            borderRight: "none !important",
+          },
         },
         "& .fc-scrollgrid-section-header > *": {
           border: "none",
+        },
+        "& .fc-scrollgrid-section-header table": {
+          borderRight: "none !important",
         },
         "& .fc-daygrid-day-top": {
           justifyContent: "flex-start !important",
@@ -81,19 +85,19 @@ export function Calendar({ events }: CalendarProps) {
           textDecoration: "none",
         },
         "& .fc-daygrid-day": {
-          borderColor: "rgba(0,0,0,0.05)",
+          borderColor: "rgba(0,0,0,0.03)", //Bordas entre os dias do calendário
         },
         "& .fc-daygrid-event-harness": {
           marginBottom: "0px",
         },
         "& .fc-event": {
           borderRadius: "10px",
-          //padding: "2px 8px",
           fontSize: "14px",
           fontWeight: 500,
-          //lineHeight: "16px",
         },
+
         "& .fc-event:not(.fc-event-start)": {
+          //Ajuste de borda do pill pra eventos multi coluna
           borderTopLeftRadius: "10px",
           borderBottomLeftRadius: "10px",
         },
@@ -110,16 +114,9 @@ export function Calendar({ events }: CalendarProps) {
         },
         "& .fc-daygrid-day-events": {
           //Age no container de todos os eventos daquele dia.
-          //paddingLeft: "4px",
-          //paddingRight: "4px",
-          //overflow: "hidden",
         },
         /*  "& .fc-event-title": {
-          overflow: "hidden", //Se não couber, esconde o excesso (hidden).
-          whiteSpace: "nowrap", //Não quebra a linha (nowrap).
-          textOverflow: "ellipsis", //Em vez de cortar abruptamente, coloca ... (ellipsis).
-          display: "block",
-        }, */
+                 }, */
       }}
     >
       <FullCalendar
@@ -164,7 +161,6 @@ export function Calendar({ events }: CalendarProps) {
           const end = dayjs(info.event.end ?? info.event.start);
 
           // Estiliza cada evento
-          //info.el.style.borderRadius = "10px";
           info.el.style.padding = "2px 8px";
           info.el.style.fontSize = "14px";
           info.el.style.fontWeight = "500";
@@ -186,7 +182,7 @@ export function Calendar({ events }: CalendarProps) {
               sx={{
                 width: 28,
                 height: 28,
-                borderRadius: "50%",
+                borderRadius: "50%", //Círculo no dia de hoje
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

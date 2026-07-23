@@ -185,10 +185,7 @@ function App() {
           {/* Calendário */}
           <Box
             sx={{
-              //mb: 4,
               flex: 1,
-              //overflow: "auto", //mostra a barra apenas quando necessário
-              //backgroundColor: colors.surfaceHi,
             }}
           >
             <Calendar events={events} />

@@ -4,7 +4,10 @@ import WifiOutlinedIcon from "@mui/icons-material/WifiOutlined";
 import LocalCafeOutlinedIcon from "@mui/icons-material/LocalCafeOutlined";
 import QRCode from "react-qr-code";
 
-const wifiString = "WIFI:T:WPA;S:Not4UCLARO2G;P:De#00130041;";
+const wifiNetworkName = "Not4UCLARO2G";
+const wifiNetworkPass = "De#00130041";
+const wifiNetworkType = "WPA";
+const wifiString = `WIFI:T:${wifiNetworkType};S:${wifiNetworkName};P:${wifiNetworkPass};`;
 
 export function WiFiWidget() {
   return (

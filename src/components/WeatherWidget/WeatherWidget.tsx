@@ -137,6 +137,7 @@ export function WeatherWidget() {
             pt: 0, // padding superior = 0
             px: 1, // padding horizontal = 1 8px
             pb: 1, // padding inferior = 1 = 8px
+            pl: 1,
             "&:last-child": { pb: 1 }, // mantém o padding inferior em 1 mesmo no último filho
           }}
         >
@@ -186,7 +187,7 @@ export function WeatherWidget() {
               sx={{
                 color: colors.textDim,
                 fontWeight: 500,
-                mb: 1, // aumenta o espaço abaixo
+                mb: 1,
               }}
             >
               {translateWeather(weather.current.condition.split(",")[0])}

@@ -5,6 +5,7 @@ import axios from "axios";
 import { useGoogleCalendar } from "./hooks/useGoogleCalendar";
 import { Calendar } from "./components/Calendar/Calendar";
 import { WeatherWidget } from "./components/WeatherWidget/WeatherWidget";
+import { WiFiWidget } from "./components/Wifi/WiFiWidget";
 import { Header } from "./components/Header/Header";
 import { colors } from "./theme/colors";
 //import { Alerts } from "./components/Alerts/Alerts";
@@ -178,7 +179,7 @@ function App() {
             }}
           >
             <WeatherWidget />
-            {/*  <Alerts /> */}
+            <WiFiWidget />
           </Box>{" "}
           {/* fim do box do widget lateral */}
           {/* Calendário */}

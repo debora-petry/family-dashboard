@@ -2,7 +2,10 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
-import { getInmetAlerts } from "./services/inmet.js";
+//import { getInmetAlerts } from "./services/inmet.js";
+import app from "./app.js";
+
+//Ele ficará responsável apenas por iniciar o servidor.
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -13,19 +16,13 @@ if (process.env.NODE_ENV !== "production" && fs.existsSync(envPath)) {
   dotenv.config({ path: envPath });
 }
 
-import cors from "cors";
 import axios from "axios";
-import express from "express";
 
 console.log("REDIRECT_URI =", process.env.REDIRECT_URI);
 console.log("CLIENT_ID =", process.env.GOOGLE_CLIENT_ID);
 console.log("FRONTEND_URL =", process.env.FRONTEND_URL);
 
-const app = express();
 const PORT = process.env.PORT || 3001;
-
-app.use(cors());
-app.use(express.json());
 
 // Novo: usa o Refresh Token salvo no Render, se existir.
 // Caso contrário, continua usando o token em memória.
@@ -186,24 +183,6 @@ app.get("/photos/albums", async (req, res) => {
         error: error.message,
       },
     );
-  }
-});
-
-// ==============================
-// INMET
-// ==============================
-console.log("Registrando rota /api/inmet-alerts");
-
-app.get("/api/inmet-alerts", async (_req, res) => {
-  try {
-    const alerts = await getInmetAlerts();
-    res.json(alerts);
-  } catch (error) {
-    console.error("Erro ao buscar alertas do INMET:", error);
-
-    res.status(500).json({
-      error: "Erro ao buscar alertas do INMET",
-    });
   }
 });
 

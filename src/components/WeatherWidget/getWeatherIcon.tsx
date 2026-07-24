@@ -14,7 +14,7 @@ const iconStyle = {
 };
 
 export const getWeatherIcon = (code: number, style = iconStyle): ReactNode => {
-  code = 113; //test code
+  //code = 113; //test code
 
   console.error("Código de clima:", code);
 

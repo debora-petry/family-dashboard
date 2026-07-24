@@ -91,8 +91,8 @@ export function WeatherWidget() {
   }, []);
 
   const forecastIconStyle = {
-    width: 45,
-    height: 45,
+    width: 30,
+    height: 30,
   };
 
   if (loading) {
@@ -195,10 +195,10 @@ export function WeatherWidget() {
             }}
           >
             <Typography
-              variant="body1"
+              variant="body2"
               sx={{
                 color: colors.textDim,
-                fontWeight: 500,
+                fontWeight: 400,
                 mb: 0,
                 mt: 0,
                 pt: 0,

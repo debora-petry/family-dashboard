@@ -43,9 +43,10 @@ export function Alerts() {
     return (
       <Box
         sx={{
-          p: 1,
+          p: 0.5,
           fontFamily: "Roboto, sans-serif",
           color: colors.textDim,
+          fontSize: "13px",
         }}
       >
         Oba! Nenhum alerta de tempo severo em Porto Alegre :)

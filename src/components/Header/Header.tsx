@@ -32,9 +32,9 @@ export function Header() {
         bgcolor: "transparent",
         backgroundImage: "none",
         boxShadow: "none",
-        py: 2,
-        mb: 0,
-        px: 3,
+        py: 1, //paddingBottom
+        mb: 0, //marginBottom
+        px: 3, //paddingLeft and paddingRight
       }}
     >
       <Toolbar

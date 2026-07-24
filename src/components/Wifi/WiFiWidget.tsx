@@ -63,7 +63,7 @@ export function WiFiWidget() {
 
         <QRCode
           value={wifiString}
-          size={60}
+          size={80}
           bgColor={colors.bg}
           fgColor={colors.textDim}
         />

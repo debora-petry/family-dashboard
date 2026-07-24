@@ -91,8 +91,8 @@ export function WeatherWidget() {
   }, []);
 
   const forecastIconStyle = {
-    width: 60,
-    height: 60,
+    width: 45,
+    height: 45,
   };
 
   if (loading) {
@@ -138,29 +138,30 @@ export function WeatherWidget() {
         <CardContent
           sx={{
             pt: 0, // padding superior = 0
-            px: 1, // padding horizontal = 1 8px
-            pb: 1, // padding inferior = 1 = 8px
+            px: 0, // padding horizontal = 1 8px
+            pb: 0, // padding inferior = 1 = 8px
             pl: 1,
-            "&:last-child": { pb: 1 }, // mantém o padding inferior em 1 mesmo no último filho
+            "&:last-child": { pb: 0 }, // mantém o padding inferior em 1 mesmo no último filho
           }}
         >
           {/* Linha superior - temp e ícone */}
           <Box
             sx={{
               display: "flex",
-              alignItems: "center",
+              alignItems: "flex-end",
               justifyContent: "center",
               gap: 1,
-              mb: 1,
+              mb: 0,
             }}
           >
             {/* Temp atual */}
             <Typography
               sx={{
                 color: colors.textDim,
-                fontSize: "2.5rem",
+                fontSize: "2rem",
                 fontWeight: 500,
-                lineHeight: 1.5,
+                lineHeight: 1,
+                //background: "yellow",
               }}
             >
               {weather.current.temp}°C
@@ -169,8 +170,13 @@ export function WeatherWidget() {
             {/* Icone */}
             <Box
               sx={{
+                display: "flex",
+                alignItems: "center",
+                //background: "cyan",
+
                 "& svg": {
-                  fontSize: "1.0rem",
+                  fontSize: "3rem",
+                  display: "block",
                 },
               }}
             >
@@ -181,7 +187,10 @@ export function WeatherWidget() {
           {/* Linha inferior: Nome da condição atual */}
           <Box
             sx={{
-              mt: 0.5,
+              mt: 0,
+              pt: 0,
+              mb: 0,
+              pb: 0,
               textAlign: "center",
             }}
           >
@@ -190,7 +199,10 @@ export function WeatherWidget() {
               sx={{
                 color: colors.textDim,
                 fontWeight: 500,
-                mb: 1,
+                mb: 0,
+                mt: 0,
+                pt: 0,
+                pb: 0,
               }}
             >
               {translateWeather(weather.current.condition.split(",")[0])}
@@ -200,7 +212,7 @@ export function WeatherWidget() {
               variant="body1"
               sx={{
                 color: colors.textDim,
-                mt: 0.25,
+                mt: 0,
               }}
             >
               {weather.current.minTemp}° • {weather.current.maxTemp}°
@@ -211,7 +223,7 @@ export function WeatherWidget() {
           <Box
             sx={{
               display: "flex",
-              gap: 2,
+              gap: 1,
               mt: 1,
               pt: 1,
               borderTop: `1px solid ${alpha(colors.textFaint, 0.5)}`, // Divider
@@ -235,7 +247,7 @@ export function WeatherWidget() {
                   >
                     {dayjs(day.date).format("ddd").toUpperCase()}
                   </Typography>
-                  <Box sx={{ fontSize: "1.5rem" }}>{day.icon}</Box>
+                  <Box sx={{ fontSize: "1rem" }}>{day.icon}</Box>
                   <Typography
                     variant="caption"
                     sx={{ color: colors.textDim, display: "block" }}

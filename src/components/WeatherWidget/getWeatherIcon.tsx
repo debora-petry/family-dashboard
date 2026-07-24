@@ -9,12 +9,12 @@ import type { ReactNode } from "react";
 import { colors } from "../../theme/colors";
 
 const iconStyle = {
-  width: 70,
-  height: 70,
+  width: 55,
+  height: 55,
 };
 
 export const getWeatherIcon = (code: number, style = iconStyle): ReactNode => {
-  //code = 374 //test code
+  code = 113; //test code
 
   console.error("Código de clima:", code);
 

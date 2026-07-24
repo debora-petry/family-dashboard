@@ -170,7 +170,7 @@ function App() {
           {/* Widget lateral */}
           <Box
             sx={{
-              width: "17%",
+              width: "20%",
               pt: 0,
               pb: 2,
               pl: 2,

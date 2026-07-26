@@ -25,11 +25,11 @@ export function Calendar({ events }: CalendarProps) {
         event.start.dateTime ??
         event.start.date,
     );
-    console.log({
+    /*  console.log({
       title: event.summary,
       start: start.format(),
       end: end.format(),
-    });
+    }); */
     const thirtyDaysAgo = dayjs().subtract(30, "day");
     const twentyDaysAhead = dayjs().add(20, "day");
     return end.isAfter(thirtyDaysAgo) && start.isBefore(twentyDaysAhead);
@@ -57,11 +57,11 @@ export function Calendar({ events }: CalendarProps) {
 
         "& .fc-col-header-cell-cushion": {
           //cabeçalho de cada coluna do calendário
-          fontSize: "15px",
+          fontSize: "12px",
           fontWeight: 400,
           color: colors.textFaint,
           textDecoration: "none",
-          padding: "2px 0",
+          padding: "1px 0",
         },
         "& .fc-scrollgrid": {
           border: "none",
@@ -92,7 +92,7 @@ export function Calendar({ events }: CalendarProps) {
         },
         "& .fc-event": {
           borderRadius: "10px",
-          fontSize: "14px",
+          fontSize: "12px",
           fontWeight: 500,
         },
 
@@ -123,9 +123,7 @@ export function Calendar({ events }: CalendarProps) {
         locale={ptBrLocale}
         firstDay={1} // Segunda-feira como primeiro dia da semana
         height="auto" // Altura dos dias
-        //contentHeight="auto"
         eventDisplay="block"
-        //height={700}
         plugins={[dayGridPlugin]}
         initialView="dayGridTwoWeeks" // Renderiza 2 semanas
         views={{
@@ -136,7 +134,6 @@ export function Calendar({ events }: CalendarProps) {
         }}
         initialDate={dayjs().format("YYYY-MM-DD")}
         eventContent={renderEventContent}
-        //eventContent={(arg) => <>{arg.event.title}</>}
         events={filteredEvents.map((event) => ({
           id: event.id,
           title: event.start.dateTime
@@ -162,7 +159,7 @@ export function Calendar({ events }: CalendarProps) {
 
           // Estiliza cada evento
           info.el.style.padding = "2px 8px";
-          info.el.style.fontSize = "14px";
+          info.el.style.fontSize = "12px";
           info.el.style.fontWeight = "500";
           if (end.isBefore(now)) {
             info.el.style.opacity = "0.45";
@@ -189,13 +186,13 @@ export function Calendar({ events }: CalendarProps) {
                 bgcolor: isToday ? colors.accent : "transparent",
                 color: isToday ? "#fff" : colors.textDim,
                 fontWeight: isToday ? 700 : 500,
+                fontSize: "12px",
               }}
             >
               <span>{arg.date.getDate()}</span>
             </Box>
           );
         }}
-        //slotLabelContent={() => null} // Remove os labels de hora
       />
     </Box>
   );

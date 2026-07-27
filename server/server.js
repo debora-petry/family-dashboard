@@ -87,6 +87,8 @@ app.get("/auth/google", (req, res) => {
     "https://www.googleapis.com/auth/home.platform.selected.devices",
   ];
 
+  console.log("Scopes: " + scopes);
+
   const params = new URLSearchParams({
     client_id: process.env.GOOGLE_CLIENT_ID,
     redirect_uri: process.env.REDIRECT_URI,
@@ -140,7 +142,7 @@ app.get("/auth/callback", async (req, res) => {
       console.log(response.data.refresh_token);
       console.log("================================");
       //console.log(response.data);
-      //console.log("ACCESS TOKEN:", response.data.access_token);
+      console.log("ACCESS TOKEN:", response.data.access_token);
       //console.log(JSON.stringify(response.data, null, 2));
     } else {
       console.log("Google não retornou um novo refresh token.");

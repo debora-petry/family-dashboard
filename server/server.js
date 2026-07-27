@@ -76,7 +76,7 @@ app.get("/auth/google", (req, res) => {
     `client_id=${process.env.GOOGLE_CLIENT_ID}&` +
     `redirect_uri=${encodeURIComponent(process.env.REDIRECT_URI)}&` +
     `response_type=code&` +
-    `scope=https://www.googleapis.com/auth/calendar.readonly https://www.googleapis.com/auth/photoslibrary.readonly&` +
+    `scope=https://www.googleapis.com/auth/calendar.readonly` +
     `access_type=offline&` +
     `prompt=consent`;
 
@@ -101,9 +101,9 @@ app.get("/auth/callback", async (req, res) => {
       grant_type: "authorization_code",
     });
 
-    //console.log("TOKENS RECEBIDOS:");
+    console.log("NOVO REFRESH TOKEN:");
     //console.log(response.data);
-    //console.log("REFRESH TOKEN:", response.data.refresh_token);
+    console.log("REFRESH TOKEN:", response.data.refresh_token);
     //console.log("ACCESS TOKEN:", response.data.access_token);
 
     tokens = {
@@ -161,7 +161,7 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/photos/albums", async (req, res) => {
+/* app.get("/photos/albums", async (req, res) => {
   try {
     const accessToken = await getValidAccessToken();
 
@@ -184,7 +184,7 @@ app.get("/photos/albums", async (req, res) => {
       },
     );
   }
-});
+}); */
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

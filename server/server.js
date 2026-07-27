@@ -96,6 +96,7 @@ app.get("/auth/google", (req, res) => {
 
 // Callback do OAuth
 app.get("/auth/callback", async (req, res) => {
+  console.log("===== CALLBACK =====");
   const { code } = req.query;
 
   if (!code) {
@@ -104,7 +105,7 @@ app.get("/auth/callback", async (req, res) => {
 
   try {
     // Troca o code por tokens
-    const response = await axios.post("https://oauth2.googleapis.com/token", {
+    const params = new URLSearchParams({
       code,
       client_id: process.env.GOOGLE_CLIENT_ID,
       client_secret: process.env.GOOGLE_CLIENT_SECRET,
@@ -112,17 +113,31 @@ app.get("/auth/callback", async (req, res) => {
       grant_type: "authorization_code",
     });
 
-    console.log("NOVO REFRESH TOKEN:");
-    //console.log(response.data);
-    console.log("REFRESH TOKEN:", response.data.refresh_token);
-    //console.log("ACCESS TOKEN:", response.data.access_token);
-
+    const response = await axios.post(
+      "https://oauth2.googleapis.com/token",
+      params,
+      {
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      },
+    );
     tokens = {
       access_token: response.data.access_token,
       refresh_token: response.data.refresh_token,
       expires_at: Date.now() + response.data.expires_in * 1000,
     };
-
+    if (response.data.refresh_token) {
+      console.log("================================");
+      console.log("NOVO REFRESH TOKEN");
+      console.log(response.data.refresh_token);
+      console.log("================================");
+      //console.log(response.data);
+      //console.log("ACCESS TOKEN:", response.data.access_token);
+      //console.log(JSON.stringify(response.data, null, 2));
+    } else {
+      console.log("Google não retornou um novo refresh token.");
+    }
     res.redirect(`${process.env.FRONTEND_URL}?auth=success`);
   } catch (error) {
     console.error(

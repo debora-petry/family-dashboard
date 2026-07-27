@@ -70,15 +70,26 @@ async function getValidAccessToken() {
 }
 
 // Endpoint para iniciar login OAuth
+
 app.get("/auth/google", (req, res) => {
-  const authUrl =
+  /*  const authUrl =
     `https://accounts.google.com/o/oauth2/v2/auth?` +
     `client_id=${process.env.GOOGLE_CLIENT_ID}&` +
     `redirect_uri=${encodeURIComponent(process.env.REDIRECT_URI)}&` +
     `response_type=code&` +
     `scope=https://www.googleapis.com/auth/calendar.readonly` +
     `access_type=offline&` +
-    `prompt=consent`;
+    `prompt=consent`; */
+  const params = new URLSearchParams({
+    client_id: process.env.GOOGLE_CLIENT_ID,
+    redirect_uri: process.env.REDIRECT_URI,
+    response_type: "code",
+    scope: "https://www.googleapis.com/auth/calendar.readonly",
+    access_type: "offline",
+    prompt: "consent",
+  });
+
+  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
 
   res.json({ authUrl });
 });

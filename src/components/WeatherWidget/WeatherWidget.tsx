@@ -161,7 +161,6 @@ export function WeatherWidget() {
                 fontSize: "2rem",
                 fontWeight: 500,
                 lineHeight: 1,
-                //background: "yellow",
               }}
             >
               {weather.current.temp}°C
@@ -172,7 +171,6 @@ export function WeatherWidget() {
               sx={{
                 display: "flex",
                 alignItems: "center",
-                //background: "cyan",
 
                 "& svg": {
                   fontSize: "3rem",
@@ -222,11 +220,12 @@ export function WeatherWidget() {
           {/* Próximos 3 dias - resumo */}
           <Box
             sx={{
+              width: "calc(100% - 32px)",
+              mx: 2,
+              borderTop: `1px solid ${alpha(colors.textFaint, 0.5)}`,
               display: "flex",
-              gap: 1,
               mt: 1,
               pt: 1,
-              borderTop: `1px solid ${alpha(colors.textFaint, 0.5)}`, // Divider
             }}
           >
             {weather.forecast.slice(1, 4).map((day, index) => (
@@ -273,10 +272,12 @@ export function WeatherWidget() {
           <Box
             sx={{
               display: "flex",
+              width: "calc(100% - 32px)",
+              mx: 2,
+              borderTop: `1px solid ${alpha(colors.textFaint, 0.5)}`, // Divider 2
               gap: 1,
               mt: 1,
               pt: 1,
-              borderTop: `1px solid ${alpha(colors.textFaint, 0.5)}`, // Divider 2
             }}
           ></Box>
           <Alerts />

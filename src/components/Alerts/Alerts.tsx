@@ -64,23 +64,32 @@ export function Alerts() {
         //border: `1px solid ${colors.border}`,
       }}
     >
-      <Typography
-        variant="body1"
+      <Box
         sx={{
           mb: 1,
           display: "flex",
+          flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          gap: 1,
-          fontFamily: "Roboto, sans-serif",
-          color: colors.textDim,
-          fontWeight: "bold",
+          gap: 0.5,
           width: "100%",
         }}
       >
         <CrisisAlertOutlinedIcon sx={{ color: colors.textDim }} />
-        Alertas Inmet
-      </Typography>
+        <Typography
+          variant="body1"
+          sx={{
+            fontFamily: "Roboto, sans-serif",
+            color: colors.textDim,
+            fontWeight: "bold",
+            textAlign: "center",
+            fontSize: "0.9rem",
+            lineHeight: 1.2,
+          }}
+        >
+          Alertas Inmet
+        </Typography>
+      </Box>
 
       <Box sx={{ display: "flex", flexDirection: "column", gap: 1, mr: 1 }}>
         {alerts.map((alert) => (

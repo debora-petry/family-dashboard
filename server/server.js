@@ -87,20 +87,25 @@ app.get("/auth/google", (req, res) => {
     "https://www.googleapis.com/auth/home.platform.selected.devices",
   ];
 
-  console.log("Scopes: " + scopes);
+  console.log("Tentando gerar URL de login com scopes:", scopes.join(" "));
 
-  const params = new URLSearchParams({
-    client_id: process.env.GOOGLE_CLIENT_ID,
-    redirect_uri: process.env.REDIRECT_URI,
-    response_type: "code",
-    scope: scopes.join(" "),
-    access_type: "offline",
-    prompt: "consent",
-  });
+  try {
+    const params = new URLSearchParams({
+      client_id: process.env.GOOGLE_CLIENT_ID,
+      redirect_uri: process.env.REDIRECT_URI,
+      response_type: "code",
+      scope: scopes.join(" "),
+      access_type: "offline",
+      prompt: "consent",
+    });
 
-  const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
-
-  res.json({ authUrl });
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?${params}`;
+    console.log("URL gerada com sucesso");
+    res.json({ authUrl });
+  } catch (err) {
+    console.error("Erro ao gerar URL de auth:", err);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 // Callback do OAuth

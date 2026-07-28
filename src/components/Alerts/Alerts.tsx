@@ -67,30 +67,27 @@ export function Alerts() {
       <Typography
         variant="body1"
         sx={{
-          mb: 2,
+          mb: 1,
           display: "flex",
           alignItems: "center",
+          justifyContent: "center",
           gap: 1,
           fontFamily: "Roboto, sans-serif",
           color: colors.textDim,
           fontWeight: "bold",
+          width: "100%",
         }}
       >
         <CrisisAlertOutlinedIcon sx={{ color: colors.textDim }} />
         Alertas Inmet
       </Typography>
 
-      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 1, mr: 1 }}>
         {alerts.map((alert) => (
           <Card
             key={alert.id_aviso}
             sx={{
-              backgroundColor:
-                alert.severidade === "Perigo"
-                  ? "#FDEAE5"
-                  : alert.severidade === "Alerta"
-                    ? "#d9caa5"
-                    : "#FFF9E8",
+              backgroundColor: colors.bg2, //cor de fundo de cada alerta Inmet
               boxShadow: "none",
               border: "none",
               borderRadius: 2,
@@ -105,9 +102,10 @@ export function Alerts() {
               <Box
                 sx={{
                   display: "flex",
-                  justifyContent: "space-between",
+                  flexDirection: "column",
                   alignItems: "center",
-                  mb: 1,
+                  gap: 0.8,
+                  mb: 1.5,
                 }}
               >
                 <Typography
@@ -115,6 +113,7 @@ export function Alerts() {
                     fontWeight: 500,
                     color: colors.textDim,
                     fontSize: "1rem",
+                    textAlign: "center",
                   }}
                 >
                   {alert.descricao}
@@ -125,7 +124,7 @@ export function Alerts() {
                   size="small"
                   sx={{
                     bgcolor: severityColors[alert.severidade],
-                    color: "#fff",
+                    color: colors.surface,
                     fontWeight: 700,
                     height: 22,
                     fontSize: "0.7rem",
@@ -137,19 +136,23 @@ export function Alerts() {
                 sx={{
                   display: "flex",
                   alignItems: "center",
+                  justifyContent: "center",
                   gap: 0.5,
                   color: colors.textDim,
-                  fontSize: "0.82rem",
+                  fontSize: "0.6rem",
+                  width: "100%",
                 }}
               >
                 <AccessTimeOutlinedIcon
-                  sx={{ fontSize: "0.9rem", position: "relative", top: "-1px" }}
+                  sx={{ fontSize: "0.6rem", position: "relative", top: "-1px" }}
                 />
                 Até{" "}
-                {new Date(alert.data_fim).toLocaleDateString("pt-BR", {
-                  day: "2-digit",
-                  month: "short",
-                })}{" "}
+                {new Date(alert.data_fim)
+                  .toLocaleDateString("pt-BR", {
+                    day: "numeric",
+                    month: "short",
+                  })
+                  .replace(".", "")}{" "}
                 • {alert.hora_fim}
               </Typography>
             </CardContent>

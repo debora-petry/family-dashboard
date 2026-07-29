@@ -10,6 +10,9 @@ import weatherRoutes from "./routes/weather.js";
 
 app.use("/weather", weatherRoutes); //Registrando a rota
 
+import cameraRoutes from "./camera/camera.routes.ts";
+app.use("/api/camera", cameraRoutes);
+
 app.get("/privacy", (req, res) => {
   res.send(`
     <html>

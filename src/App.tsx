@@ -2,7 +2,7 @@ import { Box, CircularProgress, Typography, Button } from "@mui/material";
 import { useEffect, useState } from "react";
 import axios from "axios";
 
-import { useGoogleCalendar } from "./hooks/useGoogleCalendar";
+import { useGoogleCalendar } from "./components/Calendar/useGoogleCalendar";
 import { Calendar } from "./components/Calendar/Calendar";
 import { WeatherWidget } from "./components/WeatherWidget/WeatherWidget";
 import { WiFiWidget } from "./components/Wifi/WiFiWidget";

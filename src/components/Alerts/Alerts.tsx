@@ -8,9 +8,9 @@ import {
   Alert,
 } from "@mui/material";
 import CrisisAlertOutlinedIcon from "@mui/icons-material/CrisisAlertOutlined";
-import { usePortoAlegreAlerts } from "../../hooks/usePortoAlegreAlerts";
+import { usePortoAlegreAlerts } from "./usePortoAlegreAlerts";
 import { colors } from "../../theme/colors";
-import type { InmetAlert } from "../../types/inmet";
+import type { InmetAlert } from "./inmet";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 
 const severityColors: Record<string, string> = {
@@ -133,7 +133,7 @@ export function Alerts() {
                   size="small"
                   sx={{
                     bgcolor: severityColors[alert.severidade],
-                    color: colors.surface,
+                    color: colors.surface, // cor do texto
                     fontWeight: 700,
                     height: 22,
                     fontSize: "0.7rem",

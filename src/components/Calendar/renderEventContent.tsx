@@ -1,4 +1,4 @@
-import { calendarEventIcons } from "../../constants/calendarEventIcons";
+import { calendarEventIcons } from "./calendarEventIcons";
 
 export function renderEventContent(eventInfo: any) {
   const icon =

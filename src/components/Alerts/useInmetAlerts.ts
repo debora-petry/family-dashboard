@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getInmetAlerts } from "../services/inmet";
-import type { InmetResponse } from "../types/inmet";
+import { getInmetAlerts } from "../../services/inmet";
+import type { InmetResponse } from "./inmet";
 
+// React Hook
 export function useInmetAlerts() {
   const [alerts, setAlerts] = useState<InmetResponse | null>(null);
   const [inmetLoading, setLoading] = useState(true);

@@ -1,6 +1,6 @@
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
-import type { CalendarEvent } from "../../types/calendar";
+import type { CalendarEvent } from "./calendar";
 import ptBrLocale from "@fullcalendar/core/locales/pt-br";
 import dayjs from "dayjs";
 import { Box } from "@mui/material";

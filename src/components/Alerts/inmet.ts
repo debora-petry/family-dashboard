@@ -1,3 +1,4 @@
+// Represents an alert type from the Brazilian National Institute of Meteorology (INMET)
 export interface InmetAlert {
   id: number;
   id_aviso: number;
@@ -11,8 +12,6 @@ export interface InmetAlert {
   data_fim: string;
   hora_inicio: string;
   hora_fim: string;
-
-  //poligono: string;
 
   municipios: string;
   microrregioes: string;

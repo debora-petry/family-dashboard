@@ -1,4 +1,4 @@
-import type { InmetResponse } from "../types/inmet";
+import type { InmetResponse } from "../components/Alerts/inmet";
 
 export async function getInmetAlerts(): Promise<InmetResponse> {
   const API_URL =

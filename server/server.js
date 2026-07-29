@@ -2,7 +2,6 @@ import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
 import fs from "fs";
-//import { getInmetAlerts } from "./services/inmet.js";
 import app from "./app.js";
 
 //Ele ficará responsável apenas por iniciar o servidor.

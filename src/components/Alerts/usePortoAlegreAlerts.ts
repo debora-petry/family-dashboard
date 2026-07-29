@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { getInmetAlerts } from "../services/inmet";
-import type { InmetAlert, InmetResponse } from "../types/inmet";
+import { getInmetAlerts } from "../../services/inmet";
+import type { InmetAlert, InmetResponse } from "./inmet";
 
+// React Hook
 export function usePortoAlegreAlerts() {
   const [alerts, setAlerts] = useState<InmetAlert[]>([]);
   const [loading, setLoading] = useState(true);

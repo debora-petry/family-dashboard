@@ -10,7 +10,7 @@ import {
 import CrisisAlertOutlinedIcon from "@mui/icons-material/CrisisAlertOutlined";
 import { usePortoAlegreAlerts } from "./usePortoAlegreAlerts";
 import { colors } from "../../theme/colors";
-import type { InmetAlert } from "./inmet";
+import type { InmetAlert } from "./InmetAlert";
 import AccessTimeOutlinedIcon from "@mui/icons-material/AccessTimeOutlined";
 
 const severityColors: Record<string, string> = {

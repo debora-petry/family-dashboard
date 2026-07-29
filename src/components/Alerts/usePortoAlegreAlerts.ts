@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getInmetAlerts } from "../../services/inmet";
-import type { InmetAlert, InmetResponse } from "./inmet";
+import { getInmetAlerts } from "./inmet";
+import type { InmetAlert, InmetResponse } from "./InmetAlert";
 
 // React Hook
 export function usePortoAlegreAlerts() {

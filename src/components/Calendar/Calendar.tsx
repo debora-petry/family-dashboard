@@ -25,11 +25,7 @@ export function Calendar({ events }: CalendarProps) {
         event.start.dateTime ??
         event.start.date,
     );
-    /*  console.log({
-      title: event.summary,
-      start: start.format(),
-      end: end.format(),
-    }); */
+
     const thirtyDaysAgo = dayjs().subtract(30, "day");
     const twentyDaysAhead = dayjs().add(20, "day");
     return end.isAfter(thirtyDaysAgo) && start.isBefore(twentyDaysAhead);

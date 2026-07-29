@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { getInmetAlerts } from "../../services/inmet";
-import type { InmetResponse } from "./inmet";
+import { getInmetAlerts } from "./inmet";
+import type { InmetResponse } from "./InmetAlert";
 
 // React Hook
 export function useInmetAlerts() {

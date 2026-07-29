@@ -1,37 +1,14 @@
-// Represents an alert type from the Brazilian National Institute of Meteorology (INMET)
-export interface InmetAlert {
-  id: number;
-  id_aviso: number;
-  id_condicao_severa: number;
-  id_icone: number;
+import type { InmetResponse } from "./InmetAlert";
 
-  codigo: string;
-  referencia: string;
+export async function getInmetAlerts(): Promise<InmetResponse> {
+  const API_URL =
+    import.meta.env.VITE_API_URL || "https://family-dashboard-api.onrender.com";
 
-  data_inicio: string;
-  data_fim: string;
-  hora_inicio: string;
-  hora_fim: string;
+  const response = await fetch(`${API_URL}/weather/inmet-alerts`);
 
-  municipios: string;
-  microrregioes: string;
-  mesorregioes: string;
-  estados: string;
-  regioes: string;
-  geocodes: string;
+  if (!response.ok) {
+    throw new Error("Erro ao buscar alertas do INMET");
+  }
 
-  descricao: string;
-
-  aviso_cor: string;
-
-  id_severidade: number;
-  severidade: string;
-
-  riscos: string[];
-  //instrucoes: string[];
-}
-
-export interface InmetResponse {
-  hoje: InmetAlert[];
-  futuro?: InmetAlert[];
+  return response.json();
 }

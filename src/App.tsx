@@ -8,6 +8,7 @@ import { WeatherWidget } from "./components/WeatherWidget/WeatherWidget";
 import { WiFiWidget } from "./components/Wifi/WiFiWidget";
 import { Header } from "./components/Header/Header";
 import { colors } from "./theme/colors";
+import { CameraWidget } from "./components/Camera/CameraWidget";
 //import { Alerts } from "./components/Alerts/Alerts";
 
 const API_URL =
@@ -193,6 +194,10 @@ function App() {
           {/* fim do box do calendário */}
         </Box>
       </Box>
+      <Box>
+        <CameraWidget />
+      </Box>
+      );
     </>
   );
 }

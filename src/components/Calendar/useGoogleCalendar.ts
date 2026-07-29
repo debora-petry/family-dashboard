@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { getUpcomingEvents } from "../../services/googleCalendar";
-import type { CalendarEvent } from "./calendar";
+//import type { CalendarEvent } from "./calendar";
+import type { CalendarEvent } from "./CalendarEvent";
 
 //react hook
 export function useGoogleCalendar(accessToken: string | null = null) {

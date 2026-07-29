@@ -15,7 +15,13 @@ export function usePortoAlegreAlerts() {
 
         // Filtra alertas que afetam Porto Alegre (RS)
         const portoAlegreAlerts = filterPortoAlegreAlerts(data);
-        setAlerts(portoAlegreAlerts);
+        console.log("Alertas em POA", portoAlegreAlerts);
+        const uniqueAlerts = Array.from(
+          new Map(portoAlegreAlerts.map((a) => [a.codigo, a])).values(),
+        );
+        console.log("Alertas em POA após dedup", uniqueAlerts);
+
+        setAlerts(uniqueAlerts);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Erro desconhecido");
       } finally {

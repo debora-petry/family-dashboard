@@ -193,11 +193,10 @@ function App() {
           </Box>{" "}
           {/* fim do box do calendário */}
         </Box>
+        <Box>
+          <CameraWidget />
+        </Box>
       </Box>
-      <Box>
-        <CameraWidget />
-      </Box>
-      );
     </>
   );
 }

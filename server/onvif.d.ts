@@ -11,6 +11,21 @@ declare module "onvif" {
     agent?: unknown;
   }
 
+  export interface PullPointSubscriptionResult {
+    currentTime?: string;
+    terminationTime?: string;
+    subscriptionReference?: unknown;
+    pullPoint?: unknown;
+    [key: string]: unknown;
+  }
+
+  export interface PullMessagesResult {
+    notificationMessage?: unknown[];
+    notificationMessages?: unknown[];
+    messages?: unknown[];
+    [key: string]: unknown;
+  }
+
   export class Cam {
     constructor(options: CamOptions, callback?: (err: Error | null) => void);
     getDeviceInformation(
@@ -27,6 +42,22 @@ declare module "onvif" {
       options: { profileToken: string },
       callback: (err: Error | null, result: StreamUriResult) => void,
     ): void;
+
+    createPullPointSubscription(
+      callback: (
+        err: Error | null,
+        result: PullPointSubscriptionResult,
+      ) => void,
+    ): void;
+
+    pullMessages(
+      options: { timeout: number; messageLimit: number },
+      callback: (err: Error | null, result: PullMessagesResult) => void,
+    ): void;
+
+    on(event: "event", listener: (message: unknown, xml: string) => void): this;
+    on(event: "eventsError", listener: (error: Error) => void): this;
+    on(event: string, listener: (...args: unknown[]) => void): this;
   }
 
   export interface Profile {

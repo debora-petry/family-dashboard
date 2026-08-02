@@ -5,6 +5,8 @@ const cameraService = new CameraService();
 
 export class CameraController {
   async snapshot(req: Request, res: Response): Promise<void> {
+    //console.info("Camera controller: Método snapshot");
+
     try {
       const snapshotUrl = await cameraService.getSnapshotUri();
 

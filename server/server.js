@@ -16,12 +16,15 @@ if (process.env.NODE_ENV !== "production" && fs.existsSync(envPath)) {
 }
 
 import axios from "axios";
+import { CameraService } from "./camera/camera.service.ts";
 
 console.log("REDIRECT_URI =", process.env.REDIRECT_URI);
 console.log("CLIENT_ID =", process.env.GOOGLE_CLIENT_ID);
 console.log("FRONTEND_URL =", process.env.FRONTEND_URL);
 
 const PORT = process.env.PORT || 3001;
+const cameraService = new CameraService();
+let latestMotionAlert = null;
 
 // Novo: usa o Refresh Token salvo no Render, se existir.
 // Caso contrário, continua usando o token em memória.
@@ -183,30 +186,44 @@ app.get("/", (req, res) => {
   });
 });
 
-/* app.get("/photos/albums", async (req, res) => {
-  try {
-    const accessToken = await getValidAccessToken();
+app.post("/camera/motion", (req, res) => {
+  const payload = req.body;
+  console.log(
+    "Motion alert received from camera push:",
+    JSON.stringify(payload, null, 2),
+  );
+  latestMotionAlert = {
+    timestamp: new Date().toISOString(),
+    payload,
+  };
+  res.sendStatus(200);
+});
 
-    const response = await axios.get(
-      "https://photoslibrary.googleapis.com/v1/albums",
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-
-    res.json(response.data);
-  } catch (error) {
-    console.error(error.response?.data || error.message);
-
-    res.status(error.response?.status || 500).json(
-      error.response?.data || {
-        error: error.message,
-      },
-    );
+app.get("/camera/motion/latest", (_req, res) => {
+  if (!latestMotionAlert) {
+    return res.json({ status: "no_alert" });
   }
-}); */
+
+  res.json(latestMotionAlert);
+});
+
+cameraService
+  .startMotionDetectionListener((alert) => {
+    latestMotionAlert = alert;
+    /* console.log(
+      "Motion alert received from camera event subscription:",
+      new Date().toLocaleString(
+        "pt-BR",
+
+        { timeZone: "America/Sao_Paulo" },
+      ),
+    ); */
+    //console.log("Alert details:", alert.);
+    //console.log(alert.isPerson ? "Person detected!" : "No person detected.");
+  })
+  .catch((err) => {
+    console.error("Failed to start camera motion listener:", err);
+  });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
